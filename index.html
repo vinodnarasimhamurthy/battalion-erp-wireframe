@@ -9,8 +9,8 @@
 <style>
   :root{
     --ink:#1e241c; --line:#c1c7bb; --line2:#dadfd2; --soft:#6b7363;
-    --bg:#f3f5ef; --panel:#ffffff; --accent:#313f2a; --accentSoft:#e8ede1;
-    --gold:#e0a812; --goldSoft:#f7ecc6;
+    --bg:#f3f5ef; --panel:#ffffff; --accent:#243017; --accentSoft:#e9ede2;
+    --gold:#f4b40a; --goldSoft:#fdf3d2;
     --green:#3f7d4e; --amber:#9a7320; --red:#9a3636; --chip:#edf0e8;
     --shadow:0 1px 2px rgba(0,0,0,.06),0 1px 1px rgba(0,0,0,.04);
   }
@@ -108,7 +108,7 @@
 
   .hint{font-size:11px;color:var(--soft);font-style:italic}
   .note{background:#fff8e8;border:1px solid #ecdca6;border-radius:7px;padding:9px 12px;font-size:12px;color:#6a5618;margin-bottom:14px}
-  .sec-title{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--accent);margin:22px 0 10px;font-weight:700;border-bottom:2px solid var(--gold);padding-bottom:6px}
+  .sec-title{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--ink);margin:22px 0 10px;font-weight:700;border-bottom:2px solid var(--gold);padding-bottom:6px}
 
   /* form rows */
   .frm{display:grid;grid-template-columns:160px 1fr;gap:10px 16px;align-items:center}
@@ -396,6 +396,42 @@
             <tr><td>Recruit</td><td>2009 – 2019</td></tr>
           </tbody></table></div></div>
       </div>
+      <div class="sec-title">Medical Category, Disciplinary &amp; Domicile</div>
+      <div class="grid cols-3">
+        <div class="card"><div class="hd"><h3>Medical Category (SHAPE)</h3></div><div class="bd" style="padding:0"><table><tbody>
+          <tr><td>Current</td><td style="text-align:right"><span class="tag t-green">S1H1A1</span></td></tr>
+          <tr><td>Last board</td><td style="text-align:right">02 Apr 2026</td></tr>
+          <tr><td>Review due</td><td style="text-align:right">02 Apr 2027</td></tr>
+          <tr><td>Restrictions</td><td style="text-align:right">Nil</td></tr>
+        </tbody></table></div></div>
+        <div class="card"><div class="hd"><h3>Disciplinary Issues</h3><span class="tag t-grey" style="margin-left:auto">🔒 CO / 2IC / Sub Maj</span></div><div class="bd" style="padding:0"><table><tbody>
+          <tr><td>Conduct sheet</td><td style="text-align:right"><span class="tag t-green">Clean — nil red ink</span></td></tr>
+          <tr><td>AA / summary awards</td><td style="text-align:right">Nil</td></tr>
+          <tr><td>Last reviewed</td><td style="text-align:right">Jun 2026</td></tr>
+        </tbody></table><p class="hint" style="padding:8px 12px;margin:0">Holds incident · type · AA / summary action · award · date — access tightly restricted.</p></div></div>
+        <div class="card"><div class="hd"><h3>Domicile</h3></div><div class="bd" style="padding:0"><table><tbody>
+          <tr><td>Domicile</td><td style="text-align:right"><span class="tag t-green">Indian</span> (Gorkha)</td></tr>
+          <tr><td>State</td><td style="text-align:right">West Bengal</td></tr>
+          <tr><td>District / Region</td><td style="text-align:right">Darjeeling</td></tr>
+        </tbody></table><p class="hint" style="padding:8px 12px;margin:0">2/9 GR enrols both <b>Indian</b>- and <b>Nepal</b>-domiciled Gorkhas; domicile drives leave, pension &amp; documentation rules.</p></div></div>
+      </div>
+
+      <div class="sec-title">Special Skills — maintained by Company Commander</div>
+      <div class="grid cols-2">
+        <div class="card"><div class="hd"><h3>Special Skills — Soldier</h3><span class="tag t-grey" style="margin-left:auto">✎ Coy Cdr editable</span></div><div class="bd">
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            <span class="chip on">Sniper qualified</span><span class="chip on">High-altitude warfare</span><span class="chip on">Ski &amp; mountaineering</span><span class="chip on">HV driver</span><span class="chip on">Signaller (RT)</span><span class="chip">Unarmed-combat instr</span><span class="chip">Nepali · Hindi · English</span><span class="chip">Bn boxing team</span>
+          </div>
+          <p class="hint" style="margin-top:10px">Employability, niche qualifications, sports &amp; languages — kept current by the Company Commander.</p>
+        </div></div>
+        <div class="card"><div class="hd"><h3>Special Skills — Spouse</h3><span class="tag t-grey" style="margin-left:auto">✎ Coy Cdr · AWWA</span></div><div class="bd">
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            <span class="chip on">Tailoring &amp; cutting</span><span class="chip on">Certified beautician</span><span class="chip on">Primary teaching</span><span class="chip">Nursing aide</span><span class="chip">Computer (CCC)</span><span class="chip">Handicraft / self-help</span>
+          </div>
+          <p class="hint" style="margin-top:10px">Spouse: <b>Smt Sita Gurung</b> · maintained by the Company Commander — feeds AWWA vocational training &amp; skill identification (<span class="lk" onclick="go('welfare')">view AWWA</span>).</p>
+        </div></div>
+      </div>
+
       <div class="sec-title">Contact &amp; Address</div>
       <div class="grid cols-2">
         <div class="card"><div class="hd"><h3>Present Address</h3></div><div class="bd">
@@ -1020,7 +1056,7 @@
   <title id="arch-ttl">INDRA fully self-contained, air-gapped unit-level LAN architecture</title>
   <desc id="arch-dsc">The INDRA ERP on one closed, unit-owned LAN with no interaction with any external system. A hardened battalion server room and ten distributed terminals across the lines — Bn HQ and six RLS-scoped Coy Cdr terminals (A, B, C, D, Support, HQ Companies), QM and Kote, MT under the MTO, and the RMO. An absolute air gap separates it from the internet, cloud, email, the Army Data Network and PAO/CDA systems. Nothing crosses the perimeter: outputs are printed locally and handled by hand, and all data, identity and backups reside on the unit LAN.</desc>
   <style>
-    #archsvg{--ag:#313f2a;--ag2:#4a5d3f;--agsoft:#e9eee2;--agold:#c8961a;--ared:#9a3636;--aredsoft:#f6e3e3;--aink:#1e241c;--asoft:#6b7363;--aline:#c1c7bb;--apaper:#ffffff;--acanvas:#f3f5ef;--agrey:#e7e9e4;font-family:var(--font-sans,'Segoe UI',system-ui,sans-serif);}
+    #archsvg{--ag:#243017;--ag2:#3a4b30;--agsoft:#e9eee2;--agold:#f4b40a;--ared:#9a3636;--aredsoft:#f6e3e3;--aink:#1e241c;--asoft:#6b7363;--aline:#c1c7bb;--apaper:#ffffff;--acanvas:#f3f5ef;--agrey:#e7e9e4;font-family:var(--font-sans,'Segoe UI',system-ui,sans-serif);}
     #archsvg .ttl{font-size:22px;font-weight:700;fill:var(--ag);}
     #archsvg .sub{font-size:12.5px;fill:var(--asoft);}
     #archsvg .hh{font-size:12.5px;font-weight:700;fill:var(--ag);}
