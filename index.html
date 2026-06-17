@@ -162,6 +162,8 @@
       <option>Kote NCO — Weapons</option>
       <option>MTO — Vehicles</option>
       <option>Coy Cdr — A Coy only</option>
+      <option>Subedar Major — Leave view / Welfare</option>
+      <option>Sr JCO (Coy) — Leave recommend</option>
       <option>Training JCO — Trg/Shoot/Fitness</option>
     </select>
     <div class="user"><span class="avatar">CO</span></div>
@@ -504,13 +506,14 @@
         <div class="actions"><button class="btn primary">＋ Apply / Sanction Leave</button></div></div>
       <div class="sec-title">Leave Register</div>
       <div class="card"><div class="bd" style="padding:0"><table>
-        <thead><tr><th>Army No.</th><th>Name</th><th>Type</th><th>From</th><th>To</th><th>Days</th><th>Sanctioned By</th><th>Status</th></tr></thead>
+        <thead><tr><th>Army No.</th><th>Name</th><th>Type</th><th>From</th><th>To</th><th>Days</th><th>Recommended By (Sr JCO)</th><th>Sanctioned By</th><th>Status</th></tr></thead>
         <tbody>
-          <tr><td>15511002M</td><td>Sep Bombahadur Pun</td><td>Annual</td><td>10 Jun</td><td>09 Jul</td><td>30</td><td>Maj Khanna</td><td><span class="tag t-green">Sanctioned</span></td></tr>
-          <tr><td>15498771T</td><td>LNk Tilbahadur Magar</td><td>Sick</td><td>02 Jun</td><td>—</td><td>—</td><td>RMO</td><td><span class="tag t-amber">Availed</span></td></tr>
-          <tr><td>15490233P</td><td>Nk Dhanbahadur Rai</td><td>Casual</td><td>20 Jun</td><td>23 Jun</td><td>4</td><td>Pending</td><td><span class="tag t-grey">Applied</span></td></tr>
-          <tr><td>15466190K</td><td>Sub Padambahadur Thapa</td><td>Annual</td><td>01 May</td><td>14 May</td><td>14</td><td>CO</td><td><span class="tag t-red">Overstayed</span></td></tr>
+          <tr><td>15511002M</td><td>Sep Bombahadur Pun</td><td>Annual</td><td>10 Jun</td><td>09 Jul</td><td>30</td><td>Nb Sub Bhakta Rai (C Coy)</td><td>Maj Khanna</td><td><span class="tag t-green">Sanctioned</span></td></tr>
+          <tr><td>15498771T</td><td>LNk Tilbahadur Magar</td><td>Sick</td><td>02 Jun</td><td>—</td><td>—</td><td>RMO (medical)</td><td>RMO</td><td><span class="tag t-amber">Availed</span></td></tr>
+          <tr><td>15490233P</td><td>Nk Dhanbahadur Rai</td><td>Casual</td><td>20 Jun</td><td>23 Jun</td><td>4</td><td>Nb Sub Khusiman Gurung (A Coy)</td><td>Pending</td><td><span class="tag t-grey">Applied</span></td></tr>
+          <tr><td>15466190K</td><td>Sub Padambahadur Thapa</td><td>Annual</td><td>01 May</td><td>14 May</td><td>14</td><td>2IC</td><td>CO</td><td><span class="tag t-red">Overstayed</span></td></tr>
         </tbody></table></div></div>
+      <p class="hint" style="margin-top:8px">Leave is <b>recommended by the Senior JCO of the soldier's company</b>, then sanctioned per type (Coy Cdr / CO). The <b>Subedar Major holds battalion-wide view</b> of all leave (view-only) and retains JCO &amp; OR welfare.</p>
       <div class="sec-title">Courses (cadre / promotion / special-to-arm)</div>
       <div class="card"><div class="bd" style="padding:0"><table>
         <thead><tr><th>Army No.</th><th>Name</th><th>Course</th><th>Category</th><th>Institution</th><th>Dates</th><th>Result</th></tr></thead>
@@ -876,7 +879,8 @@
           <tbody>
             <tr><td>CO / 2IC</td><td>Battalion</td><td><span class="tag t-green">Read-all + Approve</span></td></tr>
             <tr><td>Adjutant</td><td>Battalion</td><td>Personnel / Discipline</td></tr>
-            <tr><td>Subedar Major</td><td>Battalion</td><td>Leave / JCO &amp; OR welfare</td></tr>
+            <tr><td>Subedar Major</td><td>Battalion</td><td><span class="tag t-amber">Leave — Bn-wide view</span> · JCO &amp; OR welfare</td></tr>
+            <tr><td>Senior JCO (Coy)</td><td><span class="tag t-amber">Own company only</span></td><td>Recommends leave</td></tr>
             <tr><td>Quartermaster</td><td>Battalion</td><td>Ration / Equipment / Clothing</td></tr>
             <tr><td>Kote NCO</td><td>Battalion</td><td>Weapons</td></tr>
             <tr><td>MTO</td><td>Battalion</td><td>Vehicles</td></tr>
@@ -904,6 +908,7 @@
           <tr><td>Special Skills — Spouse</td><td><span class="tag t-green">Coy Cdr</span> · AWWA</td><td>CO/2IC · Coy Cdr</td><td><span class="tag t-amber">Own company</span></td></tr>
           <tr><td>Medical category (SHAPE)</td><td><span class="tag t-green">RMO</span></td><td>RMO · CO/2IC · Adjt</td><td><span class="tag t-amber">Need-to-know</span></td></tr>
           <tr><td>Discipline register</td><td><span class="tag t-green">Adjutant</span></td><td>CO / 2IC / Adjt</td><td><span class="tag t-red">Restricted (not Sub Maj)</span></td></tr>
+          <tr><td>Leave record</td><td>Recommend: <span class="tag t-green">Sr JCO</span> · Sanction: Coy Cdr / CO</td><td>Chain · Sub Maj (Bn view)</td><td><span class="tag t-amber">Own coy / Bn view</span></td></tr>
           <tr><td>Pay inputs</td><td>Adjt / clerk</td><td>CO/2IC · Adjt</td><td><span class="tag t-amber">Approve: CO</span></td></tr>
           <tr><td>Weapon / vehicle / equipment registers</td><td>Kote NCO · MTO · QM</td><td>Chain of command</td><td>Battalion</td></tr>
         </tbody></table></div>
