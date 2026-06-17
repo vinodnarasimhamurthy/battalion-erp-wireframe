@@ -189,6 +189,9 @@
     <a data-pg="equipment" onclick="go('equipment')"><span class="ic">▣</span>Equipment Stores</a>
     <a data-pg="ration" onclick="go('ration')"><span class="ic">⊞</span>Ration Accounting</a>
 
+    <div class="grp">Reference</div>
+    <a data-pg="library" onclick="go('library')"><span class="ic">▦</span>Weapons &amp; Eqpt Library</a>
+
     <div class="grp">Readiness &amp; Skills</div>
     <a data-pg="training" onclick="go('training')"><span class="ic">✓</span>Weapon Training</a>
     <a data-pg="shooting" onclick="go('shooting')"><span class="ic">◎</span>Shooting / Range</a>
@@ -1083,6 +1086,125 @@
         </table></div></div>
       </div>
       <p class="hint" style="margin-top:8px">All names/wards masked in this view. Welfare casework is handled with confidentiality; only aggregate counts surface in any roll-up.</p>
+    </section>
+
+    <!-- ============ WEAPONS & EQUIPMENT LIBRARY ============ -->
+    <section class="page" id="pg-library">
+      <div class="crumbs">Reference / Weapons &amp; Equipment Library</div>
+      <div class="page-head"><h2>Weapons &amp; Equipment Library</h2><span class="desc">Reference catalogue — types in service, specifications &amp; scales of issue</span>
+        <div class="actions"><button class="btn">Print Catalogue</button><button class="btn primary">＋ Add Type</button></div></div>
+      <div class="toolbar">
+        <input class="search" placeholder="Search designation / nomenclature / class…">
+        <span class="chip on">All</span><span class="chip">Weapons</span><span class="chip">Equipment</span>
+      </div>
+      <div class="grid cols-4">
+        <div class="card kpi"><div class="bd"><span class="label">Weapon Types</span><span class="val">9</span><span class="delta flat">in service</span></div></div>
+        <div class="card kpi"><div class="bd"><span class="label">Equipment Types</span><span class="val">24</span><span class="delta flat">catalogued</span></div></div>
+        <div class="card kpi"><div class="bd"><span class="label">Serialised Items</span><span class="val">12</span><span class="delta flat">tracked individually</span></div></div>
+        <div class="card kpi"><div class="bd"><span class="label">By-Quantity Items</span><span class="val">12</span><span class="delta flat">stock-managed</span></div></div>
+      </div>
+
+      <div class="sec-title">Weapon Catalogue</div>
+      <div class="grid cols-3">
+        <div class="card"><div class="bd">
+          <div style="display:flex;gap:10px;align-items:center"><div class="ph" style="width:66px;height:46px;border:2px dashed var(--line);border-radius:6px;display:grid;place-items:center;color:var(--soft);font-size:10px;flex:none">IMG</div>
+            <div><div style="font-weight:680">Rifle 5.56 mm</div><div><span class="tag t-grey">RIFLE</span> <span class="hint">5.56 × 45</span></div></div></div>
+          <table style="margin-top:8px"><tbody>
+            <tr><td>Scale of issue</td><td style="text-align:right">Individual</td></tr>
+            <tr><td>Effective range</td><td style="text-align:right">400 m</td></tr>
+            <tr><td>Held / scaled</td><td style="text-align:right">512 / 540</td></tr>
+          </tbody></table>
+          <div style="margin-top:6px"><span class="lk" onclick="go('weapons')">view holdings →</span></div></div></div>
+        <div class="card"><div class="bd">
+          <div style="display:flex;gap:10px;align-items:center"><div class="ph" style="width:66px;height:46px;border:2px dashed var(--line);border-radius:6px;display:grid;place-items:center;color:var(--soft);font-size:10px;flex:none">IMG</div>
+            <div><div style="font-weight:680">Carbine 9 mm</div><div><span class="tag t-grey">CARBINE</span> <span class="hint">9 × 19</span></div></div></div>
+          <table style="margin-top:8px"><tbody>
+            <tr><td>Scale of issue</td><td style="text-align:right">Individual (spec)</td></tr>
+            <tr><td>Effective range</td><td style="text-align:right">200 m</td></tr>
+            <tr><td>Held / scaled</td><td style="text-align:right">86 / 90</td></tr>
+          </tbody></table>
+          <div style="margin-top:6px"><span class="lk" onclick="go('weapons')">view holdings →</span></div></div></div>
+        <div class="card"><div class="bd">
+          <div style="display:flex;gap:10px;align-items:center"><div class="ph" style="width:66px;height:46px;border:2px dashed var(--line);border-radius:6px;display:grid;place-items:center;color:var(--soft);font-size:10px;flex:none">IMG</div>
+            <div><div style="font-weight:680">LMG 5.56 mm</div><div><span class="tag t-grey">LMG</span> <span class="hint">5.56 × 45</span></div></div></div>
+          <table style="margin-top:8px"><tbody>
+            <tr><td>Scale of issue</td><td style="text-align:right">Section</td></tr>
+            <tr><td>Effective range</td><td style="text-align:right">700 m</td></tr>
+            <tr><td>Held / scaled</td><td style="text-align:right">54 / 56</td></tr>
+          </tbody></table>
+          <div style="margin-top:6px"><span class="lk" onclick="go('weapons')">view holdings →</span></div></div></div>
+        <div class="card"><div class="bd">
+          <div style="display:flex;gap:10px;align-items:center"><div class="ph" style="width:66px;height:46px;border:2px dashed var(--line);border-radius:6px;display:grid;place-items:center;color:var(--soft);font-size:10px;flex:none">IMG</div>
+            <div><div style="font-weight:680">MMG 7.62 mm</div><div><span class="tag t-grey">MMG</span> <span class="hint">7.62 × 51</span></div></div></div>
+          <table style="margin-top:8px"><tbody>
+            <tr><td>Scale of issue</td><td style="text-align:right">Platoon (crew)</td></tr>
+            <tr><td>Effective range</td><td style="text-align:right">1,800 m</td></tr>
+            <tr><td>Held / scaled</td><td style="text-align:right">18 / 18</td></tr>
+          </tbody></table>
+          <div style="margin-top:6px"><span class="lk" onclick="go('weapons')">view holdings →</span></div></div></div>
+        <div class="card"><div class="bd">
+          <div style="display:flex;gap:10px;align-items:center"><div class="ph" style="width:66px;height:46px;border:2px dashed var(--line);border-radius:6px;display:grid;place-items:center;color:var(--soft);font-size:10px;flex:none">IMG</div>
+            <div><div style="font-weight:680">81 mm Mortar</div><div><span class="tag t-grey">MORTAR</span> <span class="hint">81 mm</span></div></div></div>
+          <table style="margin-top:8px"><tbody>
+            <tr><td>Scale of issue</td><td style="text-align:right">Sp Coy (crew)</td></tr>
+            <tr><td>Effective range</td><td style="text-align:right">4,800 m</td></tr>
+            <tr><td>Held / scaled</td><td style="text-align:right">6 / 6</td></tr>
+          </tbody></table>
+          <div style="margin-top:6px"><span class="lk" onclick="go('weapons')">view holdings →</span></div></div></div>
+        <div class="card"><div class="bd">
+          <div style="display:flex;gap:10px;align-items:center"><div class="ph" style="width:66px;height:46px;border:2px dashed var(--line);border-radius:6px;display:grid;place-items:center;color:var(--soft);font-size:10px;flex:none">IMG</div>
+            <div><div style="font-weight:680">ATGM</div><div><span class="tag t-grey">ATGM</span> <span class="hint">guided</span></div></div></div>
+          <table style="margin-top:8px"><tbody>
+            <tr><td>Scale of issue</td><td style="text-align:right">Sp Coy (det)</td></tr>
+            <tr><td>Effective range</td><td style="text-align:right">2,000 m+</td></tr>
+            <tr><td>Held / scaled</td><td style="text-align:right">8 / 8</td></tr>
+          </tbody></table>
+          <div style="margin-top:6px"><span class="lk" onclick="go('weapons')">view holdings →</span></div></div></div>
+        <div class="card"><div class="bd">
+          <div style="display:flex;gap:10px;align-items:center"><div class="ph" style="width:66px;height:46px;border:2px dashed var(--line);border-radius:6px;display:grid;place-items:center;color:var(--soft);font-size:10px;flex:none">IMG</div>
+            <div><div style="font-weight:680">Sniper Rifle 7.62</div><div><span class="tag t-grey">SNIPER</span> <span class="hint">7.62 × 51</span></div></div></div>
+          <table style="margin-top:8px"><tbody>
+            <tr><td>Scale of issue</td><td style="text-align:right">Special (scaled)</td></tr>
+            <tr><td>Effective range</td><td style="text-align:right">800 m</td></tr>
+            <tr><td>Held / scaled</td><td style="text-align:right">12 / 12</td></tr>
+          </tbody></table>
+          <div style="margin-top:6px"><span class="lk" onclick="go('weapons')">view holdings →</span></div></div></div>
+        <div class="card"><div class="bd">
+          <div style="display:flex;gap:10px;align-items:center"><div class="ph" style="width:66px;height:46px;border:2px dashed var(--line);border-radius:6px;display:grid;place-items:center;color:var(--soft);font-size:10px;flex:none">IMG</div>
+            <div><div style="font-weight:680">Pistol 9 mm</div><div><span class="tag t-grey">PISTOL</span> <span class="hint">9 × 19</span></div></div></div>
+          <table style="margin-top:8px"><tbody>
+            <tr><td>Scale of issue</td><td style="text-align:right">Officers / spec</td></tr>
+            <tr><td>Effective range</td><td style="text-align:right">50 m</td></tr>
+            <tr><td>Held / scaled</td><td style="text-align:right">44 / 48</td></tr>
+          </tbody></table>
+          <div style="margin-top:6px"><span class="lk" onclick="go('weapons')">view holdings →</span></div></div></div>
+        <div class="card"><div class="bd">
+          <div style="display:flex;gap:10px;align-items:center"><div class="ph" style="width:66px;height:46px;border:2px dashed var(--line);border-radius:6px;display:grid;place-items:center;color:var(--soft);font-size:10px;flex:none">IMG</div>
+            <div><div style="font-weight:680">UBGL 40 mm</div><div><span class="tag t-grey">UBGL</span> <span class="hint">40 mm</span></div></div></div>
+          <table style="margin-top:8px"><tbody>
+            <tr><td>Scale of issue</td><td style="text-align:right">Section (scaled)</td></tr>
+            <tr><td>Effective range</td><td style="text-align:right">400 m</td></tr>
+            <tr><td>Held / scaled</td><td style="text-align:right">36 / 40</td></tr>
+          </tbody></table>
+          <div style="margin-top:6px"><span class="lk" onclick="go('weapons')">view holdings →</span></div></div></div>
+      </div>
+
+      <div class="sec-title">Equipment Catalogue</div>
+      <div class="card"><div class="bd" style="padding:0"><table>
+        <thead><tr><th>Nomenclature</th><th>Category</th><th>Serialised</th><th>Scale Reference</th><th>Held</th><th></th></tr></thead>
+        <tbody>
+          <tr onclick="go('equipment')"><td>Radio Set VHF</td><td>Comms</td><td><span class="tag t-green">Yes</span></td><td>1 / section</td><td>58 / 72</td><td><span class="lk">holdings →</span></td></tr>
+          <tr onclick="go('equipment')"><td>Radio Set HF</td><td>Comms</td><td><span class="tag t-green">Yes</span></td><td>Coy HQ</td><td>9 / 10</td><td><span class="lk">holdings →</span></td></tr>
+          <tr onclick="go('equipment')"><td>Night Vision Device</td><td>NVD</td><td><span class="tag t-green">Yes</span></td><td>Scaled</td><td>96 / 120</td><td><span class="lk">holdings →</span></td></tr>
+          <tr onclick="go('equipment')"><td>Hand-held Thermal Imager</td><td>Optics</td><td><span class="tag t-green">Yes</span></td><td>Section</td><td>22 / 28</td><td><span class="lk">holdings →</span></td></tr>
+          <tr onclick="go('equipment')"><td>Binocular 7 × 50</td><td>Optics</td><td><span class="tag t-green">Yes</span></td><td>Section</td><td>74 / 80</td><td><span class="lk">holdings →</span></td></tr>
+          <tr onclick="go('equipment')"><td>Generator 5 KVA</td><td>Generator</td><td><span class="tag t-green">Yes</span></td><td>Coy / HQ</td><td>14 / 16</td><td><span class="lk">holdings →</span></td></tr>
+          <tr onclick="go('equipment')"><td>GPS Handheld</td><td>Comms</td><td><span class="tag t-green">Yes</span></td><td>Pl HQ</td><td>30 / 36</td><td><span class="lk">holdings →</span></td></tr>
+          <tr onclick="go('equipment')"><td>Combat Dress (sets)</td><td>Clothing</td><td><span class="tag t-grey">No</span></td><td>Per man</td><td>812 / 879</td><td><span class="lk">stock →</span></td></tr>
+          <tr onclick="go('equipment')"><td>Sleeping Bag (HA)</td><td>General Stores</td><td><span class="tag t-grey">No</span></td><td>Per man (HAA)</td><td>867 / 900</td><td><span class="lk">stock →</span></td></tr>
+          <tr onclick="go('equipment')"><td>Jerrican 20 L</td><td>General Stores</td><td><span class="tag t-grey">No</span></td><td>Scaled</td><td>54 / 60</td><td><span class="lk">stock →</span></td></tr>
+        </tbody></table></div></div>
+      <div class="note">This is <b>reference data</b> — the catalogue of types, scales &amp; specifications. Actual serial-numbered items and stock balances live in <span class="lk" onclick="go('weapons')">Weapons</span> &amp; <span class="lk" onclick="go('equipment')">Equipment Stores</span>; "held / scaled" here rolls up from those registers against the Mod&nbsp;M establishment.</div>
     </section>
 
     <!-- ============ REPORT BUILDER ============ -->
