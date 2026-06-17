@@ -151,7 +151,7 @@
     </div>
     <div class="sub">17 RAJPUT (Mod M)</div>
     <div class="spacer"></div>
-    <span class="pill" onclick="go('analytics')">⚲ Currency &amp; Expiry <b id="topAlerts">14</b></span>
+    <span class="pill" onclick="go('analytics')">⚲ Currency &amp; Expiry <b id="topAlerts">15</b></span>
     <label style="font-size:11px;opacity:.8">Viewing as role:</label>
     <select id="roleSel" onchange="setRole(this.value)">
       <option>CO / 2IC — read-all + approve</option>
@@ -169,7 +169,7 @@
   <nav class="side" id="side">
     <div class="grp">Command</div>
     <a data-pg="dashboard" class="active" onclick="go('dashboard')"><span class="ic">▤</span>Dashboard</a>
-    <a data-pg="analytics" onclick="go('analytics')"><span class="ic">◷</span>Analytics &amp; Readiness<span class="badge">14</span></a>
+    <a data-pg="analytics" onclick="go('analytics')"><span class="ic">◷</span>Analytics &amp; Readiness<span class="badge">15</span></a>
 
     <div class="grp">Personnel</div>
     <a data-pg="personnel" onclick="go('personnel')"><span class="ic">☰</span>Personnel Roster</a>
@@ -253,6 +253,7 @@
                 <tr onclick="go('court')"><td>OA 221/2025 — AFT hearing</td><td>Court Case</td><td>24 Jun</td><td><span class="tag t-amber">Due soon</span></td></tr>
                 <tr><td>Hav Singh — range re-qual</td><td>Training</td><td>22 Jun</td><td><span class="tag t-amber">Due soon</span></td></tr>
                 <tr onclick="go('welfare')"><td>Special child (…1002M) — school admn 🔒</td><td>AWWA</td><td>27 Jun</td><td><span class="tag t-amber">Due soon</span></td></tr>
+                <tr onclick="go('cadre')"><td>Hav → Nb Sub promotion board</td><td>Cadre</td><td>05 Jul</td><td><span class="tag t-amber">Due soon</span></td></tr>
                 <tr><td>Nk Kumar — PIS card expiry</td><td>Document</td><td>30 Jun</td><td><span class="tag t-amber">Due soon</span></td></tr>
               </tbody>
             </table>
@@ -260,7 +261,18 @@
         </div>
       </div>
 
-      <div class="grid cols-3" style="margin-top:14px">
+      <div class="grid cols-4" style="margin-top:14px">
+        <div class="card" onclick="go('funds')" style="cursor:pointer"><div class="hd"><h3>Fund State — Burn Rate</h3><span class="more">open →</span></div><div class="bd" style="padding:0">
+          <table>
+            <thead><tr><th>Fund</th><th>Balance</th><th>MTD Spend</th></tr></thead>
+            <tbody>
+              <tr><td>Public</td><td style="text-align:right">₹19.75L</td><td><div class="bar g" style="width:62px"><i style="width:20%"></i></div></td></tr>
+              <tr><td>Regimental</td><td style="text-align:right">₹8.57L</td><td><div class="bar r" style="width:62px"><i style="width:74%"></i></div></td></tr>
+              <tr><td>CSD</td><td style="text-align:right">₹11.20L</td><td><span class="up" style="font-size:11px">+profit</span></td></tr>
+            </tbody>
+          </table>
+          <div style="padding:8px 12px;border-top:1px solid var(--line2)"><span class="hint">Regimental fund running hot — welfare spend ↑</span></div>
+        </div></div>
         <div class="card"><div class="hd"><h3>Manpower State</h3></div><div class="bd">
           <table>
             <tbody>
@@ -724,6 +736,7 @@
             <tr onclick="go('court')"><td>OA 221/2025 — AFT hearing</td><td>Court Case</td><td>24 Jun</td><td><span class="tag t-amber">Due soon</span></td></tr>
             <tr onclick="go('court')"><td>OA 340/2026 — CA awaited</td><td>Court Case</td><td>30 Jun</td><td><span class="tag t-red">Action req</span></td></tr>
             <tr onclick="go('welfare')"><td>Special child (…1002M) — school admn 🔒</td><td>AWWA</td><td>27 Jun</td><td><span class="tag t-amber">Due soon</span></td></tr>
+            <tr onclick="go('cadre')"><td>Hav → Nb Sub promotion board</td><td>Cadre</td><td>05 Jul</td><td><span class="tag t-amber">Due soon</span></td></tr>
             <tr><td>Nk Kumar PIS card</td><td>Document</td><td>30 Jun</td><td><span class="tag t-amber">Due soon</span></td></tr>
           </tbody></table></div></div>
         <div class="card"><div class="hd"><h3>Predictive Maintenance</h3></div><div class="bd" style="padding:0"><table>
