@@ -880,7 +880,8 @@
             <tr><td>Quartermaster</td><td>Battalion</td><td>Ration / Equipment / Clothing</td></tr>
             <tr><td>Kote NCO</td><td>Battalion</td><td>Weapons</td></tr>
             <tr><td>MTO</td><td>Battalion</td><td>Vehicles</td></tr>
-            <tr><td>Coy Cdr</td><td><span class="tag t-amber">Own company only</span></td><td>Read own coy</td></tr>
+            <tr><td>RMO</td><td><span class="tag t-amber">Medical — need-to-know</span></td><td>Medical records (write)</td></tr>
+            <tr><td>Coy Cdr</td><td><span class="tag t-amber">Own company only</span></td><td>Read own coy · write special skills</td></tr>
             <tr><td>Training JCO</td><td>Battalion</td><td>Training / Shooting / Fitness</td></tr>
           </tbody></table></div>
           <div class="bd" style="border-top:1px solid var(--line2)"><p class="hint" style="margin:0">Row-level security enforced at the database layer (e.g. PostgreSQL RLS) — a Coy Cdr's queries return only his own company's rows, not just a filtered UI.</p></div></div>
@@ -894,6 +895,19 @@
           </tbody></table></div>
           <div class="bd" style="border-top:1px solid var(--line2)"><p class="hint" style="margin:0">Every create/update/delete on sensitive records logs who / when / what + before/after — non-negotiable for pay &amp; arms accounting.</p></div></div>
       </div>
+
+      <div class="sec-title">Field &amp; record write permissions</div>
+      <div class="card"><div class="bd" style="padding:0"><table>
+        <thead><tr><th>Record / field</th><th>Write (create / edit)</th><th>Read</th><th>Scope</th></tr></thead>
+        <tbody>
+          <tr><td>Special Skills — Soldier</td><td><span class="tag t-green">Coy Cdr</span></td><td>Chain of command</td><td><span class="tag t-amber">Own company</span></td></tr>
+          <tr><td>Special Skills — Spouse</td><td><span class="tag t-green">Coy Cdr</span> · AWWA</td><td>CO/2IC · Coy Cdr</td><td><span class="tag t-amber">Own company</span></td></tr>
+          <tr><td>Medical category (SHAPE)</td><td><span class="tag t-green">RMO</span></td><td>RMO · CO/2IC · Adjt</td><td><span class="tag t-amber">Need-to-know</span></td></tr>
+          <tr><td>Discipline register</td><td><span class="tag t-green">Sub Maj</span> · Adjt</td><td>CO/2IC · Sub Maj</td><td><span class="tag t-red">Restricted</span></td></tr>
+          <tr><td>Pay inputs</td><td>Adjt / clerk</td><td>CO/2IC · Adjt</td><td><span class="tag t-amber">Approve: CO</span></td></tr>
+          <tr><td>Weapon / vehicle / equipment registers</td><td>Kote NCO · MTO · QM</td><td>Chain of command</td><td>Battalion</td></tr>
+        </tbody></table></div>
+        <div class="bd" style="border-top:1px solid var(--line2)"><p class="hint" style="margin:0"><b>Coy Cdr</b> may write Special Skills (soldier &amp; spouse) only for his own company; <b>RMO</b> owns medical-category writes on a need-to-know basis (visible to RMO + CO/2IC + Adjt). Both are enforced by row- and field-level security, not the UI.</p></div></div>
     </section>
 
     <!-- ============ MES WORKS ============ -->
@@ -1089,22 +1103,22 @@
         <div class="card"><div class="hd"><h3>Standard returns (templates)</h3></div><div class="bd" style="padding:0"><table>
           <thead><tr><th>Return</th><th>Scope</th><th>Format</th></tr></thead>
           <tbody>
-            <tr><td>Held vs Authorized — men · wpn · veh · eqpt</td><td>Bn</td><td>PDF</td></tr>
-            <tr><td>Daily fed-strength / ration return</td><td>Bn</td><td>PDF</td></tr>
-            <tr><td>Currency &amp; expiry — overdue list</td><td>Bn</td><td>PDF</td></tr>
-            <tr><td>Low medical category nominal roll</td><td>Bn</td><td>PDF</td></tr>
-            <tr><td>Shooting classification summary</td><td>Coy</td><td>CSV</td></tr>
-            <tr><td>Unit Readiness Index report</td><td>Bn</td><td>PDF</td></tr>
+            <tr onclick="go('analytics')" title="Source: Analytics — Held vs Authorized"><td><span class="lk">Held vs Authorized — men · wpn · veh · eqpt</span></td><td>Bn</td><td>PDF</td></tr>
+            <tr onclick="go('ration')" title="Source: Ration Accounting"><td><span class="lk">Daily fed-strength / ration return</span></td><td>Bn</td><td>PDF</td></tr>
+            <tr onclick="go('analytics')" title="Source: Analytics — Currency &amp; Expiry tracker"><td><span class="lk">Currency &amp; expiry — overdue list</span></td><td>Bn</td><td>PDF</td></tr>
+            <tr onclick="go('medical')" title="Source: Medical — category register"><td><span class="lk">Low medical category nominal roll</span></td><td>Bn</td><td>PDF</td></tr>
+            <tr onclick="go('shooting')" title="Source: Shooting / Range"><td><span class="lk">Shooting classification summary</span></td><td>Coy</td><td>CSV</td></tr>
+            <tr onclick="go('analytics')" title="Source: Analytics — Unit Readiness Index"><td><span class="lk">Unit Readiness Index report</span></td><td>Bn</td><td>PDF</td></tr>
           </tbody></table></div></div>
       </div>
       <div class="sec-title">Recent &amp; scheduled reports</div>
       <div class="card"><div class="bd" style="padding:0"><table>
         <thead><tr><th>Report</th><th>Built by</th><th>When</th><th>Format</th><th>Schedule</th><th>Status</th></tr></thead>
         <tbody>
-          <tr><td>Held vs Authorized — Jun 26</td><td>Adjutant</td><td>15 Jun 09:10</td><td>PDF</td><td>Monthly</td><td><span class="tag t-green">Ready</span></td></tr>
-          <tr><td>Overdue currency tracker</td><td>System</td><td>15 Jun 06:00</td><td>PDF</td><td>Daily</td><td><span class="tag t-green">Ready</span></td></tr>
-          <tr><td>Readiness Index — Q2</td><td>CO</td><td>14 Jun 18:40</td><td>PDF</td><td>One-off</td><td><span class="tag t-amber">Queued</span></td></tr>
-          <tr><td>Ration &amp; POL costing — May</td><td>QM</td><td>03 Jun 11:20</td><td>CSV</td><td>Monthly</td><td><span class="tag t-green">Ready</span></td></tr>
+          <tr onclick="go('analytics')"><td><span class="lk">Held vs Authorized — Jun 26</span></td><td>Adjutant</td><td>15 Jun 09:10</td><td>PDF</td><td>Monthly</td><td><span class="tag t-green">Ready</span></td></tr>
+          <tr onclick="go('analytics')"><td><span class="lk">Overdue currency tracker</span></td><td>System</td><td>15 Jun 06:00</td><td>PDF</td><td>Daily</td><td><span class="tag t-green">Ready</span></td></tr>
+          <tr onclick="go('analytics')"><td><span class="lk">Readiness Index — Q2</span></td><td>CO</td><td>14 Jun 18:40</td><td>PDF</td><td>One-off</td><td><span class="tag t-amber">Queued</span></td></tr>
+          <tr onclick="go('ration')"><td><span class="lk">Ration &amp; POL costing — May</span></td><td>QM</td><td>03 Jun 11:20</td><td>CSV</td><td>Monthly</td><td><span class="tag t-green">Ready</span></td></tr>
         </tbody></table></div></div>
       <div class="note">Reports generate <b>on-unit</b> only — printed or saved to the local network. No data leaves the air-gapped LAN (see <span class="lk" onclick="go('architecture')">System Architecture</span>).</div>
     </section>
