@@ -153,7 +153,7 @@
     </div>
     <div class="sub">2/9 GR · 2nd Bn, 9th Gorkha Rifles (Mod M)</div>
     <div class="spacer"></div>
-    <span class="pill" onclick="go('analytics')">⚲ Currency &amp; Expiry <b id="topAlerts">15</b></span>
+    <span class="pill" onclick="go('analytics')">⚲ Currency &amp; Expiry <b id="topAlerts">18</b></span>
     <label style="font-size:11px;opacity:.8">Viewing as role:</label>
     <select id="roleSel" onchange="setRole(this.value)">
       <option>CO / 2IC — read-all + approve</option>
@@ -173,7 +173,7 @@
   <nav class="side" id="side">
     <div class="grp">Command</div>
     <a data-pg="dashboard" class="active" onclick="go('dashboard')"><span class="ic">▤</span>Dashboard</a>
-    <a data-pg="analytics" onclick="go('analytics')"><span class="ic">◷</span>Analytics &amp; Readiness<span class="badge">15</span></a>
+    <a data-pg="analytics" onclick="go('analytics')"><span class="ic">◷</span>Analytics &amp; Readiness<span class="badge">18</span></a>
     <a data-pg="reports" onclick="go('reports')"><span class="ic">❏</span>Report Builder</a>
 
     <div class="grp">Personnel</div>
@@ -271,6 +271,33 @@
         </div>
       </div>
 
+      <div class="grid cols-2" style="margin-top:14px">
+        <div class="card"><div class="hd"><h3>ERE / TD Relief Due</h3><span class="more" onclick="go('analytics')">view all →</span></div><div class="bd" style="padding:0">
+          <table>
+            <thead><tr><th>Individual</th><th>Detachment</th><th>Returns</th><th>Days</th><th>Alert</th></tr></thead>
+            <tbody>
+              <tr onclick="go('personnel')"><td>Nb Sub K. Gurung</td><td>ERE — Instr (Inf School)</td><td>12 Aug</td><td>45</td><td><span class="tag t-green">Coy Cdr</span></td></tr>
+              <tr onclick="go('personnel')"><td>Hav P. Thapa</td><td>ERE — Admin (Records)</td><td>16 Jul</td><td>29</td><td><span class="tag t-amber">Adjutant</span></td></tr>
+              <tr onclick="go('personnel')"><td>Sep B. Pun</td><td>TD — Range det</td><td>02 Jul</td><td>15</td><td><span class="tag t-red">CO</span></td></tr>
+              <tr onclick="go('personnel')"><td>Nk R. Rai</td><td>TD — Bde HQ</td><td>30 Jun</td><td>13</td><td><span class="tag t-red">CO</span></td></tr>
+            </tbody>
+          </table>
+          <div style="padding:8px 12px;border-top:1px solid var(--line2)"><span class="hint">Relief alerts: <b>45 days → Coy Cdr</b> · <b>30 days → Adjutant</b> · <b>15 days → CO</b>.</span></div>
+        </div></div>
+        <div class="card"><div class="hd"><h3>Detachment State (ERE / TD)</h3><span class="more" onclick="go('personnel')">roster →</span></div><div class="bd" style="padding:0">
+          <table>
+            <tbody>
+              <tr><td>On ERE — Instructional</td><td style="text-align:right">9</td></tr>
+              <tr><td>On ERE — Administrative</td><td style="text-align:right">6</td></tr>
+              <tr><td>On ERE — Specialized</td><td style="text-align:right">3</td></tr>
+              <tr><td>On TD (outside unit)</td><td style="text-align:right">11</td></tr>
+              <tr><td><b>Total detached (off fed strength)</b></td><td style="text-align:right"><b>29</b></td></tr>
+              <tr><td>Reliefs due ≤ 45 days</td><td style="text-align:right"><span class="tag t-amber">4</span></td></tr>
+            </tbody>
+          </table>
+        </div></div>
+      </div>
+
       <div class="grid cols-4" style="margin-top:14px">
         <div class="card" onclick="go('funds')" style="cursor:pointer"><div class="hd"><h3>Fund State — Burn Rate</h3><span class="more">open →</span></div><div class="bd" style="padding:0">
           <table>
@@ -290,8 +317,9 @@
               <tr><td>On Leave</td><td style="text-align:right">46</td></tr>
               <tr><td>On Course</td><td style="text-align:right">28</td></tr>
               <tr><td>Hospitalised</td><td style="text-align:right">7</td></tr>
-              <tr><td>Attached Out</td><td style="text-align:right">15</td></tr>
-              <tr><td><b>Available for duty</b></td><td style="text-align:right"><b>716</b></td></tr>
+              <tr onclick="go('personnel')" style="cursor:pointer"><td>On ERE (out)</td><td style="text-align:right">18</td></tr>
+              <tr onclick="go('personnel')" style="cursor:pointer"><td>On TD (out)</td><td style="text-align:right">11</td></tr>
+              <tr><td><b>Available for duty</b></td><td style="text-align:right"><b>702</b></td></tr>
             </tbody>
           </table>
         </div></div>
@@ -323,23 +351,27 @@
         <input class="search" placeholder="Search army number / name / trade…">
         <select><option>All Companies</option><option>A Coy</option><option>B Coy</option><option>Sp Coy</option></select>
         <select><option>All Ranks</option><option>Officer</option><option>JCO</option><option>OR</option></select>
-        <span class="chip on">Active</span><span class="chip">On Leave</span><span class="chip">Low Med Cat</span>
+        <span class="chip on">Active</span><span class="chip">On Leave</span><span class="chip">Low Med Cat</span><span class="chip">On ERE</span><span class="chip">On TD</span>
       </div>
       <div class="card"><div class="bd" style="padding:0">
         <table>
-          <thead><tr><th>Army No.</th><th>Rank</th><th>Name</th><th>Coy / Pl</th><th>Appointment</th><th>Trade</th><th>Med Cat</th><th>Status</th></tr></thead>
+          <thead><tr><th>Army No.</th><th>Rank</th><th>Name</th><th>Coy / Pl</th><th>Appointment</th><th>Trade</th><th>Med Cat</th><th>Status</th><th>Detachment (ERE / TD) — Return</th></tr></thead>
           <tbody>
-            <tr onclick="go('dossier')"><td><span class="lk">15487021N</span></td><td>Hav</td><td>Tekbahadur Gurung</td><td>A / 7 Pl</td><td>Sec Cdr</td><td>MMG</td><td><span class="tag t-green">S1H1A1</span></td><td><span class="tag t-green">Posted In</span></td></tr>
-            <tr onclick="go('dossier')"><td><span class="lk">15490233P</span></td><td>Nk</td><td>Dhanbahadur Rai</td><td>A / 7 Pl</td><td>—</td><td>Sniper</td><td><span class="tag t-green">S1H1A1</span></td><td><span class="tag t-amber">On Course</span></td></tr>
-            <tr onclick="go('dossier')"><td><span class="lk">15502874L</span></td><td>Sep</td><td>Manbahadur Limbu</td><td>B / 4 Pl</td><td>—</td><td>RT Op</td><td><span class="tag t-amber">P2</span></td><td><span class="tag t-green">Posted In</span></td></tr>
-            <tr onclick="go('dossier')"><td><span class="lk">15466190K</span></td><td>Sub</td><td>Padambahadur Thapa</td><td>Sp / Mor</td><td>Pl Cdr</td><td>Mortar</td><td><span class="tag t-green">S1H1A1</span></td><td><span class="tag t-green">Posted In</span></td></tr>
-            <tr onclick="go('dossier')"><td><span class="lk">15511002M</span></td><td>Sep</td><td>Bombahadur Pun</td><td>C / 9 Pl</td><td>—</td><td>Driver</td><td><span class="tag t-green">S1H1A1</span></td><td><span class="tag t-grey">On Leave</span></td></tr>
-            <tr onclick="go('dossier')"><td><span class="lk">IC-58221Y</span></td><td>Maj</td><td>V. Khanna</td><td>A Coy</td><td>Coy Cdr</td><td>Inf</td><td><span class="tag t-green">S1H1A1</span></td><td><span class="tag t-green">Posted In</span></td></tr>
-            <tr onclick="go('dossier')"><td><span class="lk">15498771T</span></td><td>LNk</td><td>Tilbahadur Magar</td><td>D / 11 Pl</td><td>—</td><td>Pioneer</td><td><span class="tag t-red">P3 (TBR)</span></td><td><span class="tag t-amber">Hospitalised</span></td></tr>
+            <tr onclick="go('dossier')"><td><span class="lk">15487021N</span></td><td>Hav</td><td>Tekbahadur Gurung</td><td>A / 7 Pl</td><td>Sec Cdr</td><td>MMG</td><td><span class="tag t-green">S1H1A1</span></td><td><span class="tag t-green">Posted In</span></td><td>—</td></tr>
+            <tr onclick="go('dossier')"><td><span class="lk">15490233P</span></td><td>Nk</td><td>Dhanbahadur Rai</td><td>A / 7 Pl</td><td>—</td><td>Sniper</td><td><span class="tag t-green">S1H1A1</span></td><td><span class="tag t-amber">On Course</span></td><td>—</td></tr>
+            <tr onclick="go('dossier')"><td><span class="lk">15502874L</span></td><td>Sep</td><td>Manbahadur Limbu</td><td>B / 4 Pl</td><td>—</td><td>RT Op</td><td><span class="tag t-amber">P2</span></td><td><span class="tag t-green">Posted In</span></td><td>—</td></tr>
+            <tr onclick="go('dossier')"><td><span class="lk">15466190K</span></td><td>Sub</td><td>Padambahadur Thapa</td><td>Sp / Mor</td><td>Pl Cdr</td><td>Mortar</td><td><span class="tag t-green">S1H1A1</span></td><td><span class="tag t-green">Posted In</span></td><td>—</td></tr>
+            <tr onclick="go('dossier')"><td><span class="lk">15511002M</span></td><td>Sep</td><td>Bombahadur Pun</td><td>C / 9 Pl</td><td>—</td><td>Driver</td><td><span class="tag t-green">S1H1A1</span></td><td><span class="tag t-grey">On Leave</span></td><td>—</td></tr>
+            <tr onclick="go('dossier')"><td><span class="lk">IC-58221Y</span></td><td>Maj</td><td>V. Khanna</td><td>A Coy</td><td>Coy Cdr</td><td>Inf</td><td><span class="tag t-green">S1H1A1</span></td><td><span class="tag t-green">Posted In</span></td><td>—</td></tr>
+            <tr onclick="go('dossier')"><td><span class="lk">15498771T</span></td><td>LNk</td><td>Tilbahadur Magar</td><td>D / 11 Pl</td><td>—</td><td>Pioneer</td><td><span class="tag t-red">P3 (TBR)</span></td><td><span class="tag t-amber">Hospitalised</span></td><td>—</td></tr>
+            <tr onclick="go('dossier')"><td><span class="lk">15455120R</span></td><td>Nb Sub</td><td>Khusiman Gurung</td><td>A Coy</td><td>Sr JCO</td><td>Instr</td><td><span class="tag t-green">S1H1A1</span></td><td><span class="tag t-amber">On ERE</span></td><td><span class="tag t-grey">ERE-Instr · Inf School · ret 12 Aug (45 d)</span></td></tr>
+            <tr onclick="go('dossier')"><td><span class="lk">15479338H</span></td><td>Hav</td><td>Pratap Thapa</td><td>B Coy</td><td>—</td><td>Clerk</td><td><span class="tag t-green">S1H1A1</span></td><td><span class="tag t-amber">On ERE</span></td><td><span class="tag t-amber">ERE-Admin · Records · ret 16 Jul (29 d)</span></td></tr>
+            <tr onclick="go('dossier')"><td><span class="lk">15512904T</span></td><td>Nk</td><td>Ratna Rai</td><td>A / 8 Pl</td><td>—</td><td>RT Op</td><td><span class="tag t-green">S1H1A1</span></td><td><span class="tag t-amber">On TD</span></td><td><span class="tag t-red">TD · Bde HQ · ret 30 Jun (13 d)</span></td></tr>
+            <tr onclick="go('dossier')"><td><span class="lk">15520117P</span></td><td>Sep</td><td>Bhim Pun</td><td>C / 9 Pl</td><td>—</td><td>Signaller</td><td><span class="tag t-green">S1H1A1</span></td><td><span class="tag t-amber">On TD</span></td><td><span class="tag t-amber">TD · Range det · ret 02 Jul (15 d)</span></td></tr>
           </tbody>
         </table>
       </div></div>
-      <p class="hint" style="margin-top:8px">Showing 7 of 812 · row-level security limits the list to the viewer's authorized scope.</p>
+      <p class="hint" style="margin-top:8px">Showing 11 of 812 · ERE (Extra-Regimental Employment) &amp; TD (Temporary Duty) carry detachment type, duration &amp; expected return; both come off fed strength &amp; available strength. Row-level security limits the list to the viewer's authorized scope.</p>
     </section>
 
     <!-- ============ SOLDIER DOSSIER ============ -->
@@ -656,11 +688,12 @@
       <div class="page-head"><h2>Ration Accounting</h2><span class="desc">Entitlement (scale × fed strength) vs actual issue → savings / excess &amp; costing</span>
         <div class="actions"><button class="btn primary">＋ Fed-Strength Return</button></div></div>
       <div class="grid cols-4">
-        <div class="card kpi"><div class="bd"><span class="label">Fed Strength (today)</span><span class="val">748</span></div></div>
+        <div class="card kpi"><div class="bd"><span class="label">Fed Strength (today)</span><span class="val">748</span><span class="delta down">▼ 29 on ERE/TD excluded</span></div></div>
         <div class="card kpi"><div class="bd"><span class="label">Entitlement (₹/day)</span><span class="val">₹1.42L</span></div></div>
         <div class="card kpi"><div class="bd"><span class="label">Actual Issue</span><span class="val up">₹1.31L</span><span class="delta up">saving 7.7%</span></div></div>
         <div class="card kpi"><div class="bd"><span class="label">Wastage (MTD)</span><span class="val down">₹6,200</span></div></div>
       </div>
+      <div class="note">Fed strength is auto-derived from posted strength minus those off-unit — <b>out-of-station leave, ERE &amp; TD (29), hospitalised-out</b>. ERE/TD changes on the <span class="lk" onclick="go('personnel')">roster</span> flow straight through to ration entitlement &amp; costing here, and to available strength &amp; the <span class="lk" onclick="go('analytics')">readiness index</span>.</div>
       <div class="grid cols-2" style="margin-top:14px">
         <div class="card"><div class="hd"><h3>Ration Scale (reference data)</h3></div><div class="bd" style="padding:0"><table>
           <thead><tr><th>Category</th><th>Item</th><th>Qty / man / day</th><th>Unit</th></tr></thead>
@@ -803,6 +836,9 @@
             <tr onclick="go('court')"><td>OA 340/2026 — CA awaited</td><td>Court Case</td><td>30 Jun</td><td><span class="tag t-red">Action req</span></td></tr>
             <tr onclick="go('welfare')"><td>Special child (…1002M) — school admn 🔒</td><td>AWWA</td><td>27 Jun</td><td><span class="tag t-amber">Due soon</span></td></tr>
             <tr onclick="go('cadre')"><td>Hav → Nb Sub promotion board</td><td>Cadre</td><td>05 Jul</td><td><span class="tag t-amber">Due soon</span></td></tr>
+            <tr onclick="go('personnel')"><td>Nk R. Rai — TD (Bde HQ) relief</td><td>ERE / TD</td><td>30 Jun</td><td><span class="tag t-red">CO alert (13 d)</span></td></tr>
+            <tr onclick="go('personnel')"><td>Hav P. Thapa — ERE-Admin relief</td><td>ERE / TD</td><td>16 Jul</td><td><span class="tag t-amber">Adjt alert (29 d)</span></td></tr>
+            <tr onclick="go('personnel')"><td>Nb Sub K. Gurung — ERE-Instr relief</td><td>ERE / TD</td><td>12 Aug</td><td><span class="tag t-grey">Coy Cdr alert (45 d)</span></td></tr>
             <tr><td>Nk Rai PIS card</td><td>Document</td><td>30 Jun</td><td><span class="tag t-amber">Due soon</span></td></tr>
           </tbody></table></div></div>
         <div class="card"><div class="hd"><h3>Predictive Maintenance</h3></div><div class="bd" style="padding:0"><table>
@@ -973,6 +1009,35 @@
           <tr style="background:var(--accentSoft)"><td><b>Stock + Cash Bal</b></td><td style="text-align:right"><b>₹ 11,20,000</b></td></tr>
         </tbody></table></div></div>
       </div>
+      <div class="sec-title">Budget Forecast · Plan vs Actual (FY 2026–27)</div>
+      <div class="grid cols-4">
+        <div class="card kpi"><div class="bd"><span class="label">Annual Budget (forecast)</span><span class="val">₹1.10<small style="font-size:13px"> Cr</small></span><span class="delta flat">Public + Regt + CSD grant</span></div></div>
+        <div class="card kpi"><div class="bd"><span class="label">Planned to date</span><span class="val">₹27.5<small style="font-size:13px"> L</small></span><span class="delta flat">phased plan · YTD</span></div></div>
+        <div class="card kpi"><div class="bd"><span class="label">Actual to date</span><span class="val down">₹27.9<small style="font-size:13px"> L</small></span><span class="delta down">▲ ₹0.4 L over plan</span></div></div>
+        <div class="card kpi"><div class="bd"><span class="label">Forecast Year-End</span><span class="val">₹1.12<small style="font-size:13px"> Cr</small></span><span class="delta down">▲ ~2% vs budget</span></div></div>
+      </div>
+      <div class="grid cols-2" style="margin-top:14px">
+        <div class="card"><div class="hd"><h3>By Fund — Budget · Plan · Actual</h3></div><div class="bd" style="padding:0"><table>
+          <thead><tr><th>Fund</th><th>Annual Budget</th><th>Planned YTD</th><th>Actual YTD</th><th>Variance</th><th>Utilisation</th></tr></thead>
+          <tbody>
+            <tr><td>Public</td><td>₹72.0 L</td><td>₹18.0 L</td><td>₹16.8 L</td><td class="up">−1.2 (under)</td><td><div class="bar g" style="width:90px"><i style="width:23%"></i></div></td></tr>
+            <tr><td>Regimental</td><td>₹28.0 L</td><td>₹7.0 L</td><td>₹8.4 L</td><td class="down">+1.4 (over)</td><td><div class="bar r" style="width:90px"><i style="width:30%"></i></div></td></tr>
+            <tr><td>CSD (welfare grant)</td><td>₹10.0 L</td><td>₹2.5 L</td><td>₹2.7 L</td><td class="down">+0.2</td><td><div class="bar a" style="width:90px"><i style="width:27%"></i></div></td></tr>
+            <tr style="background:var(--accentSoft)"><td><b>Total</b></td><td><b>₹110.0 L</b></td><td><b>₹27.5 L</b></td><td><b>₹27.9 L</b></td><td class="down"><b>+0.4</b></td><td><div class="bar a" style="width:90px"><i style="width:25%"></i></div></td></tr>
+          </tbody>
+        </table></div></div>
+        <div class="card"><div class="hd"><h3>Quarterly Plan vs Actual</h3></div><div class="bd" style="padding:0"><table>
+          <thead><tr><th>Quarter</th><th>Planned</th><th>Actual</th><th>Variance</th></tr></thead>
+          <tbody>
+            <tr><td>Q1 Apr–Jun</td><td>₹27.5 L</td><td>₹27.9 L</td><td class="down">+0.4 over</td></tr>
+            <tr><td>Q2 Jul–Sep</td><td>₹28.0 L</td><td><span class="tag t-grey">forecast</span></td><td>—</td></tr>
+            <tr><td>Q3 Oct–Dec</td><td>₹27.5 L</td><td><span class="tag t-grey">forecast</span></td><td>—</td></tr>
+            <tr><td>Q4 Jan–Mar</td><td>₹27.0 L</td><td><span class="tag t-grey">forecast</span></td><td>—</td></tr>
+          </tbody>
+        </table>
+        <div style="padding:10px 12px;border-top:1px solid var(--line2)"><span class="hint">YTD utilisation ~25% · trending ≈2% above budget — watch the Regimental fund (welfare spend ↑).</span></div></div></div>
+      </div>
+
       <div class="sec-title">Consolidated Fund Ledger</div>
       <div class="card"><div class="bd" style="padding:0"><table>
         <thead><tr><th>Date</th><th>Fund</th><th>Particulars</th><th>Receipt</th><th>Payment</th><th>Balance</th></tr></thead>
