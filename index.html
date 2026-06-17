@@ -8,9 +8,10 @@
 <title>INDRA — Integrated Battalion Defence Resource Application</title>
 <style>
   :root{
-    --ink:#1f2328; --line:#b9bfc7; --line2:#d6dbe1; --soft:#6b7280;
-    --bg:#f4f5f7; --panel:#ffffff; --accent:#3a4a63; --accentSoft:#e8edf5;
-    --green:#3f7d4e; --amber:#9a7320; --red:#9a3636; --chip:#eef0f3;
+    --ink:#1e241c; --line:#c1c7bb; --line2:#dadfd2; --soft:#6b7363;
+    --bg:#f3f5ef; --panel:#ffffff; --accent:#313f2a; --accentSoft:#e8ede1;
+    --gold:#e0a812; --goldSoft:#f7ecc6;
+    --green:#3f7d4e; --amber:#9a7320; --red:#9a3636; --chip:#edf0e8;
     --shadow:0 1px 2px rgba(0,0,0,.06),0 1px 1px rgba(0,0,0,.04);
   }
   *{box-sizing:border-box}
@@ -23,13 +24,14 @@
   .app{display:grid;grid-template-columns:236px 1fr;grid-template-rows:52px 1fr;height:100vh}
   .topbar{
     grid-column:1/3;display:flex;align-items:center;gap:14px;
-    background:var(--accent);color:#fff;padding:0 16px;border-bottom:3px solid #2a3850;
+    background:var(--accent);color:#fff;padding:0 16px;border-bottom:3px solid var(--gold);
   }
-  .topbar .logo{width:26px;height:26px;border:2px solid #fff;border-radius:4px;display:grid;place-items:center;font-size:11px;font-weight:700}
+  .topbar .logo{width:26px;height:26px;border:2px solid var(--gold);color:var(--gold);border-radius:4px;display:grid;place-items:center;font-size:11px;font-weight:700}
   .topbar h1{font-size:14px;margin:0;font-weight:600;letter-spacing:.3px}
   .topbar .sub{opacity:.75;font-size:11.5px;margin-left:-6px}
   .topbar .spacer{flex:1}
-  .topbar .pill{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);padding:3px 10px;border-radius:20px;font-size:11.5px;cursor:pointer}
+  .topbar .pill{background:rgba(255,255,255,.10);border:1px solid var(--gold);padding:3px 10px;border-radius:20px;font-size:11.5px;cursor:pointer}
+  .topbar .pill b{color:var(--gold)}
   .topbar select{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:5px;padding:4px 8px;font-size:11.5px}
   .topbar select option{color:#000}
   .topbar .user{display:flex;align-items:center;gap:8px;font-size:12px}
@@ -43,7 +45,7 @@
     text-decoration:none;font-size:13px;cursor:pointer;border-left:3px solid transparent
   }
   .side a:hover{background:var(--bg)}
-  .side a.active{background:var(--accentSoft);border-left-color:var(--accent);font-weight:600}
+  .side a.active{background:var(--accentSoft);border-left-color:var(--gold);font-weight:600}
   .side a .ic{width:18px;height:18px;border:1.5px solid var(--soft);border-radius:4px;flex:none;display:grid;place-items:center;font-size:10px;color:var(--soft)}
   .side a.active .ic{border-color:var(--accent);color:var(--accent)}
   .side .badge{margin-left:auto;background:var(--red);color:#fff;border-radius:10px;font-size:10px;padding:1px 6px}
@@ -106,7 +108,7 @@
 
   .hint{font-size:11px;color:var(--soft);font-style:italic}
   .note{background:#fff8e8;border:1px solid #ecdca6;border-radius:7px;padding:9px 12px;font-size:12px;color:#6a5618;margin-bottom:14px}
-  .sec-title{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--soft);margin:22px 0 10px;font-weight:600;border-bottom:1px solid var(--line2);padding-bottom:6px}
+  .sec-title{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--accent);margin:22px 0 10px;font-weight:700;border-bottom:2px solid var(--gold);padding-bottom:6px}
 
   /* form rows */
   .frm{display:grid;grid-template-columns:160px 1fr;gap:10px 16px;align-items:center}
@@ -137,7 +139,7 @@
 
   .empty{border:2px dashed var(--line);border-radius:8px;padding:26px;text-align:center;color:var(--soft);font-size:12.5px}
   .ftr{font-size:11px;color:var(--soft);text-align:center;padding:18px 0}
-  .wf-banner{background:#23314a;color:#cdd7e6;font-size:11px;text-align:center;padding:4px;letter-spacing:.5px}
+  .wf-banner{background:#26331e;color:#dfe7d2;font-size:11px;text-align:center;padding:4px;letter-spacing:.5px;border-bottom:2px solid var(--gold)}
 </style>
 </head>
 <body>
