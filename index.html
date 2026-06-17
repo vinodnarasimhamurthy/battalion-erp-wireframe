@@ -9,8 +9,8 @@
 <style>
   :root{
     --ink:#1e241c; --line:#c1c7bb; --line2:#dadfd2; --soft:#6b7363;
-    --bg:#f3f5ef; --panel:#ffffff; --accent:#243017; --accentSoft:#e9ede2;
-    --gold:#f4b40a; --goldSoft:#fdf3d2;
+    --bg:#f3f5ef; --panel:#ffffff; --accent:#14200b; --accentSoft:#e7ecdf;
+    --gold:#ffc400; --goldSoft:#fff3c4;
     --green:#3f7d4e; --amber:#9a7320; --red:#9a3636; --chip:#edf0e8;
     --shadow:0 1px 2px rgba(0,0,0,.06),0 1px 1px rgba(0,0,0,.04);
   }
@@ -139,7 +139,7 @@
 
   .empty{border:2px dashed var(--line);border-radius:8px;padding:26px;text-align:center;color:var(--soft);font-size:12.5px}
   .ftr{font-size:11px;color:var(--soft);text-align:center;padding:18px 0}
-  .wf-banner{background:#26331e;color:#dfe7d2;font-size:11px;text-align:center;padding:4px;letter-spacing:.5px;border-bottom:2px solid var(--gold)}
+  .wf-banner{background:#0f1808;color:#dfe7d2;font-size:11px;text-align:center;padding:4px;letter-spacing:.5px;border-bottom:2px solid var(--gold)}
 </style>
 </head>
 <body>
@@ -172,12 +172,14 @@
     <div class="grp">Command</div>
     <a data-pg="dashboard" class="active" onclick="go('dashboard')"><span class="ic">▤</span>Dashboard</a>
     <a data-pg="analytics" onclick="go('analytics')"><span class="ic">◷</span>Analytics &amp; Readiness<span class="badge">15</span></a>
+    <a data-pg="reports" onclick="go('reports')"><span class="ic">❏</span>Report Builder</a>
 
     <div class="grp">Personnel</div>
     <a data-pg="personnel" onclick="go('personnel')"><span class="ic">☰</span>Personnel Roster</a>
     <a data-pg="dossier" onclick="go('dossier')"><span class="ic">◧</span>Soldier Dossier</a>
     <a data-pg="leave" onclick="go('leave')"><span class="ic">⤓</span>Leave &amp; Courses</a>
-    <a data-pg="medical" onclick="go('medical')"><span class="ic">✚</span>Medical &amp; Discipline</a>
+    <a data-pg="medical" onclick="go('medical')"><span class="ic">✚</span>Medical</a>
+    <a data-pg="discipline" onclick="go('discipline')"><span class="ic">§</span>Discipline<span class="badge" style="background:var(--soft)">🔒</span></a>
 
     <div class="grp">Logistics &amp; Accounting</div>
     <a data-pg="weapons" onclick="go('weapons')"><span class="ic">⌖</span>Weapons &amp; Ammunition</a>
@@ -377,11 +379,14 @@
       </div>
 
       <div class="grid cols-3" style="margin-top:14px">
-        <div class="card"><div class="hd"><h3>Training Currency</h3></div><div class="bd">
-          <table><tbody>
-            <tr><td>MMG Cadre</td><td><span class="tag t-green">Current</span></td></tr>
-            <tr><td>Range Safety</td><td><span class="tag t-amber">Exp 22 Jun</span></td></tr>
-            <tr><td>JCO promotion cadre</td><td><span class="tag t-grey">Nil</span></td></tr>
+        <div class="card"><div class="hd"><h3>Training Currency</h3></div><div class="bd" style="padding:0">
+          <table>
+            <thead><tr><th>Qualification</th><th>Status</th><th>Proficiency</th></tr></thead>
+            <tbody>
+            <tr><td>MMG Cadre</td><td><span class="tag t-green">Current</span></td><td><span class="tag t-green">Instructor</span></td></tr>
+            <tr><td>Marksmanship / shooting</td><td><span class="tag t-green">Current</span></td><td><span class="tag t-green">Marksman</span></td></tr>
+            <tr><td>Range Safety</td><td><span class="tag t-amber">Exp 22 Jun</span></td><td><span class="tag t-green">Proficient</span></td></tr>
+            <tr><td>JCO promotion cadre</td><td><span class="tag t-grey">Nil</span></td><td><span class="tag t-grey">—</span></td></tr>
           </tbody></table></div></div>
         <div class="card"><div class="hd"><h3>Leave Balance</h3></div><div class="bd">
           <table><tbody>
@@ -515,21 +520,37 @@
         </tbody></table></div></div>
     </section>
 
-    <!-- ============ MEDICAL & DISCIPLINE ============ -->
+    <!-- ============ MEDICAL ============ -->
     <section class="page" id="pg-medical">
-      <div class="crumbs">Personnel / Medical &amp; Discipline</div>
-      <div class="page-head"><h2>Medical &amp; Discipline</h2><span class="desc">Access tightly restricted &middot; latest medical row feeds the soldier's SHAPE category</span></div>
-      <div class="note">🔒 Discipline records are restricted to CO/2IC and Subedar Major appointments. Fields below are illustrative of the register structure only.</div>
-      <div class="grid cols-2">
-        <div class="card"><div class="hd"><h3>Medical Category Register (effective-dated)</h3></div><div class="bd" style="padding:0"><table>
-          <thead><tr><th>Name</th><th>Exam Date</th><th>SHAPE</th><th>Restrictions</th><th>Review Due</th></tr></thead>
-          <tbody>
-            <tr><td>Sep Manbahadur Limbu</td><td>12 Mar 26</td><td><span class="tag t-amber">P2</span></td><td>No HAA</td><td>18 Jun 26</td></tr>
-            <tr><td>LNk Tilbahadur Magar</td><td>02 Jun 26</td><td><span class="tag t-red">P3 (TBR)</span></td><td>Recat board</td><td>02 Sep 26</td></tr>
-            <tr><td>Hav Tekbahadur Gurung</td><td>02 Apr 26</td><td><span class="tag t-green">S1H1A1</span></td><td>Nil</td><td>02 Apr 27</td></tr>
-          </tbody></table></div></div>
-        <div class="card"><div class="hd"><h3>Discipline Register 🔒</h3></div><div class="bd"><div class="empty">Restricted — visible to CO / 2IC / Sub Maj only.<br>Incident · type · AA/summary action · award · date.</div></div></div>
+      <div class="crumbs">Personnel / Medical</div>
+      <div class="page-head"><h2>Medical</h2><span class="desc">SHAPE medical categories · latest row feeds the soldier's category</span>
+        <div class="actions"><button class="btn">Low-Cat Nominal Roll</button><button class="btn primary">＋ Record Medical Board</button></div></div>
+      <div class="grid cols-3">
+        <div class="card kpi"><div class="bd"><span class="label">SHAPE-1 (fit)</span><span class="val up">774</span><span class="delta up">95% of held</span></div></div>
+        <div class="card kpi"><div class="bd"><span class="label">Low Medical Category</span><span class="val down">38</span><span class="delta down">P2 / P3 / TBR</span></div></div>
+        <div class="card kpi"><div class="bd"><span class="label">Reviews Due ≤30d</span><span class="val">9</span></div></div>
       </div>
+      <div class="card" style="margin-top:14px"><div class="hd"><h3>Medical Category Register (effective-dated)</h3></div><div class="bd" style="padding:0"><table>
+        <thead><tr><th>Army No.</th><th>Name</th><th>Exam Date</th><th>SHAPE</th><th>Restrictions</th><th>Review Due</th></tr></thead>
+        <tbody>
+          <tr><td>15502874L</td><td>Sep Manbahadur Limbu</td><td>12 Mar 26</td><td><span class="tag t-amber">P2</span></td><td>No HAA</td><td><span class="tag t-amber">18 Jun 26</span></td></tr>
+          <tr><td>15498771T</td><td>LNk Tilbahadur Magar</td><td>02 Jun 26</td><td><span class="tag t-red">P3 (TBR)</span></td><td>Recat board</td><td>02 Sep 26</td></tr>
+          <tr><td>15487021N</td><td>Hav Tekbahadur Gurung</td><td>02 Apr 26</td><td><span class="tag t-green">S1H1A1</span></td><td>Nil</td><td>02 Apr 27</td></tr>
+        </tbody></table></div></div>
+      <p class="hint" style="margin-top:8px">Append-only history — every board is a new effective-dated row; the latest feeds each soldier's dossier SHAPE category and gates fitness testing.</p>
+    </section>
+
+    <!-- ============ DISCIPLINE ============ -->
+    <section class="page" id="pg-discipline">
+      <div class="crumbs">Personnel / Discipline</div>
+      <div class="page-head"><h2>Discipline</h2><span class="desc">Restricted register — conduct, AA &amp; summary action</span>
+        <div class="actions"><button class="btn primary">＋ Record Entry</button></div></div>
+      <div class="note">🔒 Restricted access — visible to <b>CO / 2IC / Subedar Major</b> only. Row-level security limits this register to those appointments; structure below is illustrative.</div>
+      <div class="card"><div class="hd"><h3>Discipline Register</h3><span class="tag t-grey" style="margin-left:auto">🔒 CO / 2IC / Sub Maj</span></div><div class="bd" style="padding:0"><table>
+        <thead><tr><th>Date</th><th>Army No.</th><th>Incident</th><th>Type</th><th>AA / Summary Action</th><th>Award</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td colspan="7"><div class="empty">Restricted — entries visible to CO / 2IC / Sub Maj only.<br>Each record holds: date · incident · type · AA / summary action · award.</div></td></tr>
+        </tbody></table></div></div>
     </section>
 
     <!-- ============ WEAPONS ============ -->
@@ -1045,6 +1066,49 @@
       <p class="hint" style="margin-top:8px">All names/wards masked in this view. Welfare casework is handled with confidentiality; only aggregate counts surface in any roll-up.</p>
     </section>
 
+    <!-- ============ REPORT BUILDER ============ -->
+    <section class="page" id="pg-reports">
+      <div class="crumbs">Command / Report Builder</div>
+      <div class="page-head"><h2>Report Builder</h2><span class="desc">Build returns &amp; extracts — fixed-format printed returns and ad-hoc reports</span>
+        <div class="actions"><button class="btn">Save as Template</button><button class="btn primary">Generate</button></div></div>
+      <div class="grid cols-2">
+        <div class="card"><div class="hd"><h3>1 · Build a report</h3></div><div class="bd">
+          <div class="frm">
+            <label>Data source</label><div class="inp">Personnel ▾</div>
+            <label>Columns / fields</label><div class="inp ph">choose fields to include…</div>
+            <label>Filters</label><div class="inp ph">e.g. Coy = A · Med Cat ≠ S1 · overdue only</div>
+            <label>Group by</label><div class="inp ph">Company / Platoon / Rank…</div>
+            <label>Sort</label><div class="inp ph">Seniority / Name / Date…</div>
+          </div>
+          <div style="margin:12px 0 4px"><span class="hint">Output format</span></div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap"><span class="chip on">PDF (print)</span><span class="chip">CSV</span><span class="chip">On-screen</span></div>
+          <div style="margin:12px 0 4px"><span class="hint">Schedule</span></div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap"><span class="chip on">One-off</span><span class="chip">Daily</span><span class="chip">Weekly</span><span class="chip">Monthly</span></div>
+          <div style="margin-top:14px;display:flex;gap:8px"><button class="btn primary">Generate</button><button class="btn">Preview</button><button class="btn">Schedule</button></div>
+        </div></div>
+        <div class="card"><div class="hd"><h3>Standard returns (templates)</h3></div><div class="bd" style="padding:0"><table>
+          <thead><tr><th>Return</th><th>Scope</th><th>Format</th></tr></thead>
+          <tbody>
+            <tr><td>Held vs Authorized — men · wpn · veh · eqpt</td><td>Bn</td><td>PDF</td></tr>
+            <tr><td>Daily fed-strength / ration return</td><td>Bn</td><td>PDF</td></tr>
+            <tr><td>Currency &amp; expiry — overdue list</td><td>Bn</td><td>PDF</td></tr>
+            <tr><td>Low medical category nominal roll</td><td>Bn</td><td>PDF</td></tr>
+            <tr><td>Shooting classification summary</td><td>Coy</td><td>CSV</td></tr>
+            <tr><td>Unit Readiness Index report</td><td>Bn</td><td>PDF</td></tr>
+          </tbody></table></div></div>
+      </div>
+      <div class="sec-title">Recent &amp; scheduled reports</div>
+      <div class="card"><div class="bd" style="padding:0"><table>
+        <thead><tr><th>Report</th><th>Built by</th><th>When</th><th>Format</th><th>Schedule</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>Held vs Authorized — Jun 26</td><td>Adjutant</td><td>15 Jun 09:10</td><td>PDF</td><td>Monthly</td><td><span class="tag t-green">Ready</span></td></tr>
+          <tr><td>Overdue currency tracker</td><td>System</td><td>15 Jun 06:00</td><td>PDF</td><td>Daily</td><td><span class="tag t-green">Ready</span></td></tr>
+          <tr><td>Readiness Index — Q2</td><td>CO</td><td>14 Jun 18:40</td><td>PDF</td><td>One-off</td><td><span class="tag t-amber">Queued</span></td></tr>
+          <tr><td>Ration &amp; POL costing — May</td><td>QM</td><td>03 Jun 11:20</td><td>CSV</td><td>Monthly</td><td><span class="tag t-green">Ready</span></td></tr>
+        </tbody></table></div></div>
+      <div class="note">Reports generate <b>on-unit</b> only — printed or saved to the local network. No data leaves the air-gapped LAN (see <span class="lk" onclick="go('architecture')">System Architecture</span>).</div>
+    </section>
+
     <!-- ============ SYSTEM ARCHITECTURE ============ -->
     <section class="page" id="pg-architecture">
       <div class="crumbs">Administration / System Architecture</div>
@@ -1056,7 +1120,7 @@
   <title id="arch-ttl">INDRA fully self-contained, air-gapped unit-level LAN architecture</title>
   <desc id="arch-dsc">The INDRA ERP on one closed, unit-owned LAN with no interaction with any external system. A hardened battalion server room and ten distributed terminals across the lines — Bn HQ and six RLS-scoped Coy Cdr terminals (A, B, C, D, Support, HQ Companies), QM and Kote, MT under the MTO, and the RMO. An absolute air gap separates it from the internet, cloud, email, the Army Data Network and PAO/CDA systems. Nothing crosses the perimeter: outputs are printed locally and handled by hand, and all data, identity and backups reside on the unit LAN.</desc>
   <style>
-    #archsvg{--ag:#243017;--ag2:#3a4b30;--agsoft:#e9eee2;--agold:#f4b40a;--ared:#9a3636;--aredsoft:#f6e3e3;--aink:#1e241c;--asoft:#6b7363;--aline:#c1c7bb;--apaper:#ffffff;--acanvas:#f3f5ef;--agrey:#e7e9e4;font-family:var(--font-sans,'Segoe UI',system-ui,sans-serif);}
+    #archsvg{--ag:#14200b;--ag2:#33442a;--agsoft:#e9eee2;--agold:#ffc400;--ared:#9a3636;--aredsoft:#f6e3e3;--aink:#1e241c;--asoft:#6b7363;--aline:#c1c7bb;--apaper:#ffffff;--acanvas:#f3f5ef;--agrey:#e7e9e4;font-family:var(--font-sans,'Segoe UI',system-ui,sans-serif);}
     #archsvg .ttl{font-size:22px;font-weight:700;fill:var(--ag);}
     #archsvg .sub{font-size:12.5px;fill:var(--asoft);}
     #archsvg .hh{font-size:12.5px;font-weight:700;fill:var(--ag);}
