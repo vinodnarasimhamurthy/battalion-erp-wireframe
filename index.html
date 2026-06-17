@@ -1390,6 +1390,105 @@
         <div class="card"><div class="hd"><h3>Central core</h3></div><div class="bd"><p class="hint" style="margin:0">One hardened server room runs app, PostgreSQL (RLS + audit), identity and analytics; backups stay on-unit (NAS + offline safe).</p></div></div>
         <div class="card"><div class="hd"><h3>Distributed &amp; scoped</h3></div><div class="bd"><p class="hint" style="margin:0">Ten terminals across the lines on one unit-owned LAN; each Coy Cdr terminal is row-level scoped to its own company.</p></div></div>
       </div>
+
+      <div class="sec-title">Field deployment — dispersed 50–100 km</div>
+      <div class="note">In the field the single LAN gives way to a <b>disconnected-capable hub-and-spoke</b>: a node at each location runs a local database, syncing <b>store-and-forward</b> over the unit's own closed tactical bearers (or courier media). Still no public internet. Each Coy node owns its company's data, so merges rarely conflict.</div>
+      <div class="card"><div class="bd" style="overflow:auto">
+<svg id="fieldsvg" viewBox="0 0 1180 850" style="width:100%;height:auto;min-width:960px;display:block" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="field-ttl field-dsc">
+  <title id="field-ttl">INDRA field-deployment air-gapped architecture</title>
+  <desc id="field-dsc">INDRA deployed across a 50–100 km field area as a disconnected-capable hub-and-spoke system on a closed tactical WAN: a Bn HQ hub/master node with the full database and reference master, six forward nodes (A, B, C, D, Support Companies and Admin/B-Echelon) each running a rugged local database for their own company over varied tactical bearers with courier USB fallback; reference data flows down, company data and audit flow up; modes are connected, intermittent and disconnected/EMCON; forward nodes are encrypted at rest with zeroize and data minimisation; no public internet.</desc>
+  <style>
+    #fieldsvg{--g:#14200b;--g2:#33442a;--gsoft:#e9eee2;--gold:#ffc400;--red:#9a3636;--ink:#1e241c;--soft:#6b7363;--line:#c1c7bb;--paper:#ffffff;--canvas:#f3f5ef;--grey:#e7e9e4;font-family:var(--font-sans,'Segoe UI',system-ui,sans-serif);}
+    #fieldsvg .ttl{font-size:22px;font-weight:700;fill:var(--g);}
+    #fieldsvg .sub{font-size:12.5px;fill:var(--soft);}
+    #fieldsvg .hh{font-size:12.5px;font-weight:700;fill:var(--g);}
+    #fieldsvg .h{font-size:12px;font-weight:700;fill:var(--ink);}
+    #fieldsvg .s{font-size:11px;fill:var(--soft);}
+    #fieldsvg .sm{font-size:9.5px;fill:var(--soft);}
+    #fieldsvg .red{fill:var(--red);font-weight:700;}
+    #fieldsvg .box{fill:var(--paper);stroke:var(--g2);stroke-width:1.4;}
+    #fieldsvg .layer{fill:var(--gsoft);stroke:var(--line);stroke-width:1;}
+    #fieldsvg .db{fill:var(--paper);stroke:var(--gold);stroke-width:2;}
+    #fieldsvg .node{fill:var(--paper);stroke:var(--g2);stroke-width:1.3;}
+    #fieldsvg .panel{fill:#f7f9f4;stroke:var(--g2);stroke-width:1.3;}
+    #fieldsvg .lk{stroke:var(--g2);stroke-width:1.8;fill:none;}
+    #fieldsvg .bus{stroke:var(--g);stroke-width:6;fill:none;}
+    #fieldsvg .sw{fill:var(--gold);}
+    #fieldsvg .dash{stroke-dasharray:6 4;}
+  </style>
+  <rect x="0" y="0" width="1180" height="850" fill="var(--canvas)"/>
+  <text x="24" y="34" class="ttl">INDRA — Field Deployment (50–100 km) · disconnected-capable hub &amp; spoke</text>
+  <text x="24" y="55" class="sub">Each location runs a local node; they sync store-and-forward over the unit's own closed tactical bearers — never the public internet</text>
+  <rect x="40" y="70" width="1100" height="42" rx="8" fill="var(--grey)" stroke="var(--line)"/>
+  <text x="590" y="96" text-anchor="middle" class="red">PUBLIC INTERNET · CLOUD · EMAIL — NOT CONNECTED  (air gap to public networks retained)</text>
+  <rect x="40" y="124" width="1100" height="624" rx="14" fill="#f0f3ec" stroke="var(--g2)" stroke-width="2.2" class="dash"/>
+  <text x="60" y="148" class="hh">FIELD DEPLOYMENT AREA · CLOSED TACTICAL WAN — dispersed 50–100 km · no public uplink</text>
+  <rect x="64" y="170" width="292" height="300" rx="10" class="box"/>
+  <text x="80" y="194" class="hh">Bn HQ — Hub / Master node</text>
+  <rect x="84" y="204" width="252" height="40" rx="6" class="layer"/>
+  <text x="96" y="220" class="h">Application / Web</text><text x="96" y="235" class="sm">Django / Frappe</text>
+  <rect x="84" y="248" width="252" height="44" rx="6" class="db"/>
+  <text x="96" y="265" class="h">PostgreSQL ★ — full DB</text><text x="96" y="281" class="sm">authoritative reference master</text>
+  <rect x="84" y="296" width="252" height="40" rx="6" class="layer"/>
+  <text x="96" y="312" class="h">Identity master · readiness rollup</text><text x="96" y="327" class="sm">consolidated Bn picture</text>
+  <rect x="84" y="340" width="252" height="40" rx="6" class="layer"/>
+  <text x="96" y="356" class="h">Audit aggregation</text><text x="96" y="371" class="sm">logs consolidate on sync</text>
+  <rect x="84" y="384" width="252" height="38" rx="6" class="dash" fill="#fff" stroke="var(--g2)"/>
+  <text x="96" y="407" class="h">Encrypted at rest</text>
+  <rect x="402" y="168" width="78" height="28" rx="6" class="box"/>
+  <text x="441" y="186" text-anchor="middle" class="h">TAC WAN</text>
+  <line x1="441" y1="196" x2="441" y2="540" class="bus"/>
+  <text x="441" y="556" text-anchor="middle" class="sm">↓ reference data  ·  ↑ coy data + audit</text>
+  <line x1="356" y1="330" x2="441" y2="330" class="lk"/>
+  <g class="sw"><rect x="435" y="195" width="12" height="12" rx="2"/><rect x="435" y="259" width="12" height="12" rx="2"/><rect x="435" y="323" width="12" height="12" rx="2"/><rect x="435" y="387" width="12" height="12" rx="2"/><rect x="435" y="451" width="12" height="12" rx="2"/><rect x="435" y="515" width="12" height="12" rx="2"/></g>
+  <g class="lk"><line x1="441" y1="201" x2="560" y2="201"/><line x1="441" y1="265" x2="560" y2="265"/><line x1="441" y1="329" x2="560" y2="329"/><line x1="441" y1="393" x2="560" y2="393"/><line x1="441" y1="457" x2="560" y2="457"/></g>
+  <line x1="441" y1="521" x2="560" y2="521" class="lk dash"/>
+  <rect x="560" y="176" width="540" height="50" rx="8" class="node"/>
+  <text x="574" y="196" class="h">A Company — forward node</text>
+  <text x="574" y="214" class="sm">via radio relay · local DB (own coy) · terminals · encrypted · zeroize</text>
+  <rect x="560" y="240" width="540" height="50" rx="8" class="node"/>
+  <text x="574" y="260" class="h">B Company — forward node</text>
+  <text x="574" y="278" class="sm">via LOS microwave · local DB (own coy) · terminals · encrypted · zeroize</text>
+  <rect x="560" y="304" width="540" height="50" rx="8" class="node"/>
+  <text x="574" y="324" class="h">C Company — forward node</text>
+  <text x="574" y="342" class="sm">via tac-SATCOM · local DB (own coy) · terminals · encrypted · zeroize</text>
+  <rect x="560" y="368" width="540" height="50" rx="8" class="node"/>
+  <text x="574" y="388" class="h">D Company — forward node</text>
+  <text x="574" y="406" class="sm">via field cable · local DB (own coy) · terminals · encrypted · zeroize</text>
+  <rect x="560" y="432" width="540" height="50" rx="8" class="node"/>
+  <text x="574" y="452" class="h">Support Company — forward node</text>
+  <text x="574" y="470" class="sm">via radio relay · local DB (own coy) · terminals · encrypted · zeroize</text>
+  <rect x="560" y="496" width="540" height="50" rx="8" class="node dash"/>
+  <text x="574" y="516" class="h">Admin / B-Echelon — forward node</text>
+  <text x="574" y="534" class="sm">via courier (USB) · store-and-forward · local DB · encrypted</text>
+  <rect x="64" y="578" width="338" height="150" rx="10" class="panel"/>
+  <text x="80" y="600" class="hh">Operating modes</text>
+  <line x1="82" y1="616" x2="118" y2="616" class="lk"/><text x="128" y="620" class="s">Connected — near-real-time async</text>
+  <line x1="82" y1="640" x2="118" y2="640" class="lk dash"/><text x="128" y="644" class="s">Intermittent — store-and-forward</text>
+  <line x1="82" y1="664" x2="118" y2="664" stroke="#33442a" stroke-width="1.8" stroke-dasharray="2 4"/><text x="128" y="668" class="s">Disconnected / EMCON — fully local</text>
+  <text x="80" y="700" class="sm">Eventual consistency · each Coy node owns its</text>
+  <text x="80" y="714" class="sm">own company's data → few merge conflicts.</text>
+  <rect x="414" y="578" width="300" height="150" rx="10" class="panel"/>
+  <text x="430" y="600" class="hh">Sync mechanism</text>
+  <text x="430" y="622" class="s">• SymmetricDS — store-and-forward</text>
+  <text x="430" y="644" class="s">• PostgreSQL logical replication</text>
+  <text x="430" y="666" class="s">• CRDT counters — ammo · ration</text>
+  <text x="430" y="688" class="s">• Reference data: one-way HQ → Coy</text>
+  <text x="430" y="714" class="sm">Syncs on contact, or by carried media.</text>
+  <rect x="726" y="578" width="374" height="150" rx="10" class="panel"/>
+  <text x="742" y="600" class="hh">Forward-node security</text>
+  <text x="742" y="622" class="s">• Full-disk + DB encryption at rest</text>
+  <text x="742" y="644" class="s">• Zeroize / rapid-wipe on capture risk</text>
+  <text x="742" y="666" class="s">• Data-minimised — own coy + reference only</text>
+  <text x="742" y="688" class="s">• Offline authentication (cached / replicated)</text>
+  <text x="742" y="710" class="s">• Audit replicates up to HQ</text>
+  <rect x="44" y="766" width="15" height="15" rx="3" fill="var(--g)"/><text x="66" y="778" class="s">Node / closed unit network</text>
+  <rect x="290" y="766" width="15" height="15" rx="3" fill="var(--gold)"/><text x="312" y="778" class="s">Reference / bearer accent</text>
+  <rect x="520" y="766" width="15" height="15" rx="3" fill="var(--red)"/><text x="542" y="778" class="s">Public internet — no path</text>
+  <line x1="724" y1="773" x2="756" y2="773" class="lk dash"/><text x="764" y="778" class="s">Courier (physical media) link</text>
+  <text x="44" y="804" class="sm">Closed tactical WAN = sanctioned private bearers, never the public internet · pre-deploy full replication to every node · reconcile on return.</text>
+</svg>
+      </div></div>
     </section>
 
     <div class="ftr">INDRA — Integrated Battalion Defence Resource Application · 2/9 GR · wireframe v1 · on-premise / air-gapped · PostgreSQL + Django + Metabase (per design doc)</div>
