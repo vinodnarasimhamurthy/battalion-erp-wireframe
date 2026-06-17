@@ -1,0 +1,3 @@
+# Discourage all crawlers/indexing — illustrative wireframe, not for public search results
+User-agent: *
+Disallow: /
