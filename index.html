@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Infantry Battalion ERP — Wireframe</title>
+<style>
+  :root{
+    --ink:#1f2328; --line:#b9bfc7; --line2:#d6dbe1; --soft:#6b7280;
+    --bg:#f4f5f7; --panel:#ffffff; --accent:#3a4a63; --accentSoft:#e8edf5;
+    --green:#3f7d4e; --amber:#9a7320; --red:#9a3636; --chip:#eef0f3;
+    --shadow:0 1px 2px rgba(0,0,0,.06),0 1px 1px rgba(0,0,0,.04);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{
+    font-family:"Segoe UI",system-ui,Arial,sans-serif;
+    color:var(--ink); background:var(--bg); font-size:13.5px; line-height:1.45;
+  }
+  /* ---- App shell ---- */
+  .app{display:grid;grid-template-columns:236px 1fr;grid-template-rows:52px 1fr;height:100vh}
+  .topbar{
+    grid-column:1/3;display:flex;align-items:center;gap:14px;
+    background:var(--accent);color:#fff;padding:0 16px;border-bottom:3px solid #2a3850;
+  }
+  .topbar .logo{width:26px;height:26px;border:2px solid #fff;border-radius:4px;display:grid;place-items:center;font-size:11px;font-weight:700}
+  .topbar h1{font-size:14px;margin:0;font-weight:600;letter-spacing:.3px}
+  .topbar .sub{opacity:.75;font-size:11.5px;margin-left:-6px}
+  .topbar .spacer{flex:1}
+  .topbar .pill{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);padding:3px 10px;border-radius:20px;font-size:11.5px;cursor:pointer}
+  .topbar select{background:rgba(255,255,255,.12);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:5px;padding:4px 8px;font-size:11.5px}
+  .topbar select option{color:#000}
+  .topbar .user{display:flex;align-items:center;gap:8px;font-size:12px}
+  .topbar .avatar{width:28px;height:28px;border-radius:50%;background:#fff;color:var(--accent);display:grid;place-items:center;font-weight:700;font-size:11px}
+
+  /* ---- Sidebar ---- */
+  .side{background:var(--panel);border-right:1px solid var(--line);overflow-y:auto;padding:8px 0}
+  .side .grp{padding:10px 16px 4px;font-size:10px;letter-spacing:.8px;text-transform:uppercase;color:var(--soft)}
+  .side a{
+    display:flex;align-items:center;gap:10px;padding:7px 16px;color:var(--ink);
+    text-decoration:none;font-size:13px;cursor:pointer;border-left:3px solid transparent
+  }
+  .side a:hover{background:var(--bg)}
+  .side a.active{background:var(--accentSoft);border-left-color:var(--accent);font-weight:600}
+  .side a .ic{width:18px;height:18px;border:1.5px solid var(--soft);border-radius:4px;flex:none;display:grid;place-items:center;font-size:10px;color:var(--soft)}
+  .side a.active .ic{border-color:var(--accent);color:var(--accent)}
+  .side .badge{margin-left:auto;background:var(--red);color:#fff;border-radius:10px;font-size:10px;padding:1px 6px}
+
+  /* ---- Content ---- */
+  .main{overflow-y:auto;padding:18px 22px 60px}
+  .crumbs{font-size:11.5px;color:var(--soft);margin-bottom:6px}
+  .page-head{display:flex;align-items:flex-end;gap:14px;margin-bottom:16px}
+  .page-head h2{margin:0;font-size:20px;font-weight:650}
+  .page-head .desc{color:var(--soft);font-size:12.5px;padding-bottom:2px}
+  .page-head .actions{margin-left:auto;display:flex;gap:8px}
+
+  .btn{border:1px solid var(--line);background:var(--panel);border-radius:6px;padding:6px 12px;font-size:12.5px;cursor:pointer;color:var(--ink)}
+  .btn:hover{background:var(--bg)}
+  .btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .btn.primary:hover{opacity:.92}
+
+  .grid{display:grid;gap:14px}
+  .cols-4{grid-template-columns:repeat(4,1fr)}
+  .cols-3{grid-template-columns:repeat(3,1fr)}
+  .cols-2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:1100px){.cols-4{grid-template-columns:repeat(2,1fr)}.cols-3{grid-template-columns:repeat(2,1fr)}}
+
+  .card{background:var(--panel);border:1px solid var(--line2);border-radius:8px;box-shadow:var(--shadow)}
+  .card .hd{padding:11px 14px;border-bottom:1px solid var(--line2);display:flex;align-items:center;gap:8px}
+  .card .hd h3{margin:0;font-size:13.5px;font-weight:600}
+  .card .hd .more{margin-left:auto;color:var(--soft);font-size:12px;cursor:pointer}
+  .card .bd{padding:14px}
+
+  /* KPI */
+  .kpi .bd{display:flex;flex-direction:column;gap:2px}
+  .kpi .label{font-size:11.5px;color:var(--soft);text-transform:uppercase;letter-spacing:.4px}
+  .kpi .val{font-size:26px;font-weight:680;line-height:1.1}
+  .kpi .delta{font-size:11.5px}
+  .up{color:var(--green)} .down{color:var(--red)} .flat{color:var(--soft)}
+
+  /* progress / gauge */
+  .bar{height:8px;background:var(--chip);border-radius:6px;overflow:hidden;margin-top:6px}
+  .bar > i{display:block;height:100%;background:var(--accent)}
+  .bar.g>i{background:var(--green)} .bar.a>i{background:var(--amber)} .bar.r>i{background:var(--red)}
+
+  /* table */
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th,td{text-align:left;padding:8px 12px;border-bottom:1px solid var(--line2)}
+  th{font-size:10.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--soft);font-weight:600;background:#fafbfc}
+  tbody tr:hover{background:#fafbfc;cursor:pointer}
+  td .lk{color:var(--accent);font-weight:600}
+
+  .tag{display:inline-block;padding:2px 8px;border-radius:11px;font-size:10.5px;font-weight:600;border:1px solid transparent}
+  .t-green{background:#e7f1e9;color:var(--green);border-color:#cfe3d4}
+  .t-amber{background:#f6efdd;color:var(--amber);border-color:#e8dcbb}
+  .t-red{background:#f6e3e3;color:var(--red);border-color:#e8c7c7}
+  .t-grey{background:var(--chip);color:var(--soft);border-color:var(--line2)}
+
+  .toolbar{display:flex;gap:8px;align-items:center;margin-bottom:12px;flex-wrap:wrap}
+  .toolbar input,.toolbar select{border:1px solid var(--line);border-radius:6px;padding:6px 10px;font-size:12.5px;background:var(--panel)}
+  .toolbar .search{flex:1;min-width:180px}
+  .chip{background:var(--chip);border:1px solid var(--line2);border-radius:20px;padding:4px 11px;font-size:11.5px;cursor:pointer;color:var(--soft)}
+  .chip.on{background:var(--accentSoft);color:var(--accent);border-color:var(--accent);font-weight:600}
+
+  .hint{font-size:11px;color:var(--soft);font-style:italic}
+  .note{background:#fff8e8;border:1px solid #ecdca6;border-radius:7px;padding:9px 12px;font-size:12px;color:#6a5618;margin-bottom:14px}
+  .sec-title{font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--soft);margin:22px 0 10px;font-weight:600;border-bottom:1px solid var(--line2);padding-bottom:6px}
+
+  /* form rows */
+  .frm{display:grid;grid-template-columns:160px 1fr;gap:10px 16px;align-items:center}
+  .frm label{font-size:12px;color:var(--soft)}
+  .frm .inp{border:1px solid var(--line);border-radius:6px;padding:7px 10px;background:#fbfcfd;color:var(--soft);font-size:12.5px}
+  .frm .inp.ph{color:#aab1ba;font-style:italic}
+
+  .page{display:none}
+  .page.show{display:block}
+
+  /* dossier */
+  .dossier-head{display:flex;gap:16px;align-items:center;margin-bottom:16px}
+  .dossier-head .ph{width:74px;height:74px;border:2px dashed var(--line);border-radius:8px;display:grid;place-items:center;color:var(--soft);font-size:11px;flex:none}
+  .meta-row{display:flex;gap:26px;flex-wrap:wrap;font-size:12.5px;margin-top:4px}
+  .meta-row b{display:block;font-size:11px;color:var(--soft);font-weight:500;text-transform:uppercase;letter-spacing:.4px}
+
+  .legend{display:flex;gap:14px;font-size:11.5px;color:var(--soft);margin-top:10px;flex-wrap:wrap}
+  .legend span{display:inline-flex;align-items:center;gap:5px}
+  .dot{width:9px;height:9px;border-radius:50%;display:inline-block}
+
+  /* simple bar chart */
+  .chart{display:flex;align-items:flex-end;gap:14px;height:150px;padding:10px 4px;border-bottom:1px solid var(--line2)}
+  .chart .col{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:6px;height:100%}
+  .chart .col .b{width:60%;background:var(--accent);border-radius:4px 4px 0 0;min-height:4px}
+  .chart .col small{font-size:10.5px;color:var(--soft)}
+  .chart-x{display:flex;gap:14px;margin-top:4px}
+  .chart-x span{flex:1;text-align:center;font-size:11px;color:var(--soft)}
+
+  .empty{border:2px dashed var(--line);border-radius:8px;padding:26px;text-align:center;color:var(--soft);font-size:12.5px}
+  .ftr{font-size:11px;color:var(--soft);text-align:center;padding:18px 0}
+  .wf-banner{background:#23314a;color:#cdd7e6;font-size:11px;text-align:center;padding:4px;letter-spacing:.5px}
+</style>
+</head>
+<body>
+<div class="wf-banner">LOW-FIDELITY WIREFRAME &middot; Infantry Battalion ERP (Mod M) &middot; sample data for layout only — not live</div>
+<div class="app">
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="logo">BN</div>
+    <div>
+      <h1>Battalion ERP</h1>
+    </div>
+    <div class="sub">17 RAJPUT (Mod M)</div>
+    <div class="spacer"></div>
+    <span class="pill" onclick="go('analytics')">⚲ Currency &amp; Expiry <b id="topAlerts">12</b></span>
+    <label style="font-size:11px;opacity:.8">Viewing as role:</label>
+    <select id="roleSel" onchange="setRole(this.value)">
+      <option>CO / 2IC — read-all + approve</option>
+      <option>Adjutant — Personnel</option>
+      <option>Quartermaster — Ration/Equipment</option>
+      <option>Kote NCO — Weapons</option>
+      <option>MTO — Vehicles</option>
+      <option>Coy Cdr — A Coy only</option>
+      <option>Training JCO — Trg/Shoot/Fitness</option>
+    </select>
+    <div class="user"><span class="avatar">CO</span></div>
+  </header>
+
+  <!-- SIDEBAR -->
+  <nav class="side" id="side">
+    <div class="grp">Command</div>
+    <a data-pg="dashboard" class="active" onclick="go('dashboard')"><span class="ic">▤</span>Dashboard</a>
+    <a data-pg="analytics" onclick="go('analytics')"><span class="ic">◷</span>Analytics &amp; Readiness<span class="badge">12</span></a>
+
+    <div class="grp">Personnel</div>
+    <a data-pg="personnel" onclick="go('personnel')"><span class="ic">☰</span>Personnel Roster</a>
+    <a data-pg="dossier" onclick="go('dossier')"><span class="ic">◧</span>Soldier Dossier</a>
+    <a data-pg="leave" onclick="go('leave')"><span class="ic">⤓</span>Leave &amp; Courses</a>
+    <a data-pg="medical" onclick="go('medical')"><span class="ic">✚</span>Medical &amp; Discipline</a>
+
+    <div class="grp">Logistics &amp; Accounting</div>
+    <a data-pg="weapons" onclick="go('weapons')"><span class="ic">⌖</span>Weapons &amp; Ammunition</a>
+    <a data-pg="vehicles" onclick="go('vehicles')"><span class="ic">⛟</span>Vehicles (MT)</a>
+    <a data-pg="equipment" onclick="go('equipment')"><span class="ic">▣</span>Equipment Stores</a>
+    <a data-pg="ration" onclick="go('ration')"><span class="ic">⊞</span>Ration Accounting</a>
+
+    <div class="grp">Readiness &amp; Skills</div>
+    <a data-pg="training" onclick="go('training')"><span class="ic">✓</span>Weapon Training</a>
+    <a data-pg="shooting" onclick="go('shooting')"><span class="ic">◎</span>Shooting / Range</a>
+    <a data-pg="fitness" onclick="go('fitness')"><span class="ic">⚡</span>Physical Fitness</a>
+
+    <div class="grp">Finance</div>
+    <a data-pg="pay" onclick="go('pay')"><span class="ic">₹</span>Pay &amp; Allowances</a>
+
+    <div class="grp">Administration</div>
+    <a data-pg="org" onclick="go('org')"><span class="ic">⤧</span>Org &amp; Establishment</a>
+    <a data-pg="admin" onclick="go('admin')"><span class="ic">⚿</span>RBAC &amp; Audit</a>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="main" id="main">
+
+    <!-- ============ DASHBOARD ============ -->
+    <section class="page show" id="pg-dashboard">
+      <div class="crumbs">Command / Dashboard</div>
+      <div class="page-head">
+        <h2>Battalion Dashboard</h2>
+        <span class="desc">Unit Readiness snapshot &middot; as on 15 Jun 2026</span>
+        <div class="actions">
+          <button class="btn">Export Return</button>
+          <button class="btn primary" onclick="go('analytics')">Open Analytics</button>
+        </div>
+      </div>
+
+      <div class="grid cols-4">
+        <div class="card kpi"><div class="bd"><span class="label">Unit Readiness Index</span><span class="val">78<small style="font-size:14px">/100</small></span><span class="delta up">▲ 3 vs last month</span><div class="bar g"><i style="width:78%"></i></div></div></div>
+        <div class="card kpi"><div class="bd"><span class="label">Held vs Authorized (Men)</span><span class="val">812<small style="font-size:14px"> / 879</small></span><span class="delta down">▼ 67 deficient (92%)</span><div class="bar a"><i style="width:92%"></i></div></div></div>
+        <div class="card kpi"><div class="bd"><span class="label">Weapon Serviceability</span><span class="val">96%</span><span class="delta up">▲ serviceable / held</span><div class="bar g"><i style="width:96%"></i></div></div></div>
+        <div class="card kpi"><div class="bd"><span class="label">Vehicles On-Road</span><span class="val">84%</span><span class="delta down">▼ 4 off-road / BLR</span><div class="bar a"><i style="width:84%"></i></div></div></div>
+      </div>
+
+      <div class="grid cols-2" style="margin-top:14px">
+        <div class="card">
+          <div class="hd"><h3>Readiness by Sub-Unit</h3><span class="more" onclick="go('analytics')">drill down →</span></div>
+          <div class="bd">
+            <table>
+              <thead><tr><th>Company</th><th>Role</th><th>Avail</th><th>Readiness</th><th></th></tr></thead>
+              <tbody>
+                <tr onclick="go('analytics')"><td>A Coy</td><td>Rifle</td><td>89%</td><td><b>82</b></td><td><div class="bar g" style="width:90px"><i style="width:82%"></i></div></td></tr>
+                <tr onclick="go('analytics')"><td>B Coy</td><td>Rifle</td><td>84%</td><td><b>76</b></td><td><div class="bar a" style="width:90px"><i style="width:76%"></i></div></td></tr>
+                <tr onclick="go('analytics')"><td>C Coy</td><td>Rifle</td><td>78%</td><td><b>68</b></td><td><div class="bar a" style="width:90px"><i style="width:68%"></i></div></td></tr>
+                <tr onclick="go('analytics')"><td>D Coy</td><td>Rifle</td><td>91%</td><td><b>85</b></td><td><div class="bar g" style="width:90px"><i style="width:85%"></i></div></td></tr>
+                <tr onclick="go('analytics')"><td>Sp Coy</td><td>Support</td><td>72%</td><td><b>61</b></td><td><div class="bar r" style="width:90px"><i style="width:61%"></i></div></td></tr>
+                <tr onclick="go('analytics')"><td>HQ Coy</td><td>HQ</td><td>88%</td><td><b>80</b></td><td><div class="bar g" style="width:90px"><i style="width:80%"></i></div></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="hd"><h3>Currency &amp; Expiry — Due / Overdue</h3><span class="more" onclick="go('analytics')">view all →</span></div>
+          <div class="bd" style="padding:0">
+            <table>
+              <thead><tr><th>Item</th><th>Type</th><th>Due</th><th>Status</th></tr></thead>
+              <tbody>
+                <tr><td>Rfl 9mm SN 44021 — inspection</td><td>Weapon</td><td>10 Jun</td><td><span class="tag t-red">Overdue</span></td></tr>
+                <tr><td>BA-31204 — 5,000 km service</td><td>Vehicle</td><td>12 Jun</td><td><span class="tag t-red">Overdue</span></td></tr>
+                <tr><td>Sep Yadav R. — medical review</td><td>Medical</td><td>18 Jun</td><td><span class="tag t-amber">Due soon</span></td></tr>
+                <tr><td>Hav Singh — range re-qual</td><td>Training</td><td>22 Jun</td><td><span class="tag t-amber">Due soon</span></td></tr>
+                <tr><td>Nk Kumar — PIS card expiry</td><td>Document</td><td>30 Jun</td><td><span class="tag t-amber">Due soon</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid cols-3" style="margin-top:14px">
+        <div class="card"><div class="hd"><h3>Manpower State</h3></div><div class="bd">
+          <table>
+            <tbody>
+              <tr><td>Posted In (effective)</td><td style="text-align:right"><b>812</b></td></tr>
+              <tr><td>On Leave</td><td style="text-align:right">46</td></tr>
+              <tr><td>On Course</td><td style="text-align:right">28</td></tr>
+              <tr><td>Hospitalised</td><td style="text-align:right">7</td></tr>
+              <tr><td>Attached Out</td><td style="text-align:right">15</td></tr>
+              <tr><td><b>Available for duty</b></td><td style="text-align:right"><b>716</b></td></tr>
+            </tbody>
+          </table>
+        </div></div>
+        <div class="card"><div class="hd"><h3>Shooting Classification</h3></div><div class="bd">
+          <div class="legend" style="margin:0 0 8px">
+            <span><i class="dot" style="background:var(--green)"></i>Marksman 31%</span>
+            <span><i class="dot" style="background:var(--accent)"></i>1st Cl 44%</span>
+            <span><i class="dot" style="background:var(--amber)"></i>2nd Cl 19%</span>
+            <span><i class="dot" style="background:var(--red)"></i>Failed 6%</span>
+          </div>
+          <div class="bar" style="display:flex"><i style="width:31%;background:var(--green)"></i><i style="width:44%;background:var(--accent)"></i><i style="width:19%;background:var(--amber)"></i><i style="width:6%;background:var(--red)"></i></div>
+          <p class="hint" style="margin-top:10px">Trend ▲ vs last ARM classification.</p>
+        </div></div>
+        <div class="card"><div class="hd"><h3>Quick Actions</h3></div><div class="bd" style="display:flex;flex-direction:column;gap:8px">
+          <button class="btn" onclick="go('leave')">＋ Sanction Leave</button>
+          <button class="btn" onclick="go('weapons')">＋ Issue / Return Weapon</button>
+          <button class="btn" onclick="go('ration')">＋ File Fed-Strength Return</button>
+          <button class="btn" onclick="go('shooting')">＋ Record Firing Result</button>
+        </div></div>
+      </div>
+    </section>
+
+    <!-- ============ PERSONNEL ROSTER ============ -->
+    <section class="page" id="pg-personnel">
+      <div class="crumbs">Personnel / Roster</div>
+      <div class="page-head"><h2>Personnel Roster</h2><span class="desc">The hub — every module attaches to a soldier</span>
+        <div class="actions"><button class="btn">Import</button><button class="btn primary">＋ Add Personnel</button></div></div>
+      <div class="toolbar">
+        <input class="search" placeholder="Search army number / name / trade…">
+        <select><option>All Companies</option><option>A Coy</option><option>B Coy</option><option>Sp Coy</option></select>
+        <select><option>All Ranks</option><option>Officer</option><option>JCO</option><option>OR</option></select>
+        <span class="chip on">Active</span><span class="chip">On Leave</span><span class="chip">Low Med Cat</span>
+      </div>
+      <div class="card"><div class="bd" style="padding:0">
+        <table>
+          <thead><tr><th>Army No.</th><th>Rank</th><th>Name</th><th>Coy / Pl</th><th>Appointment</th><th>Trade</th><th>Med Cat</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr onclick="go('dossier')"><td><span class="lk">15487021N</span></td><td>Hav</td><td>Surinder Singh</td><td>A / 7 Pl</td><td>Sec Cdr</td><td>MMG</td><td><span class="tag t-green">S1H1A1</span></td><td><span class="tag t-green">Posted In</span></td></tr>
+            <tr onclick="go('dossier')"><td><span class="lk">15490233P</span></td><td>Nk</td><td>Rajesh Kumar</td><td>A / 7 Pl</td><td>—</td><td>Sniper</td><td><span class="tag t-green">S1H1A1</span></td><td><span class="tag t-amber">On Course</span></td></tr>
+            <tr onclick="go('dossier')"><td><span class="lk">15502874L</span></td><td>Sep</td><td>Ravi Yadav</td><td>B / 4 Pl</td><td>—</td><td>RT Op</td><td><span class="tag t-amber">P2</span></td><td><span class="tag t-green">Posted In</span></td></tr>
+            <tr onclick="go('dossier')"><td><span class="lk">15466190K</span></td><td>Sub</td><td>Mahavir Prasad</td><td>Sp / Mor</td><td>Pl Cdr</td><td>Mortar</td><td><span class="tag t-green">S1H1A1</span></td><td><span class="tag t-green">Posted In</span></td></tr>
+            <tr onclick="go('dossier')"><td><span class="lk">15511002M</span></td><td>Sep</td><td>Amit Sharma</td><td>C / 9 Pl</td><td>—</td><td>Driver</td><td><span class="tag t-green">S1H1A1</span></td><td><span class="tag t-grey">On Leave</span></td></tr>
+            <tr onclick="go('dossier')"><td><span class="lk">IC-58221Y</span></td><td>Maj</td><td>V. Khanna</td><td>A Coy</td><td>Coy Cdr</td><td>Inf</td><td><span class="tag t-green">S1H1A1</span></td><td><span class="tag t-green">Posted In</span></td></tr>
+            <tr onclick="go('dossier')"><td><span class="lk">15498771T</span></td><td>LNk</td><td>Deepak Verma</td><td>D / 11 Pl</td><td>—</td><td>Pioneer</td><td><span class="tag t-red">P3 (TBR)</span></td><td><span class="tag t-amber">Hospitalised</span></td></tr>
+          </tbody>
+        </table>
+      </div></div>
+      <p class="hint" style="margin-top:8px">Showing 7 of 812 · row-level security limits the list to the viewer's authorized scope.</p>
+    </section>
+
+    <!-- ============ SOLDIER DOSSIER ============ -->
+    <section class="page" id="pg-dossier">
+      <div class="crumbs" onclick="go('personnel')" style="cursor:pointer">Personnel / Roster / <b>Dossier</b></div>
+      <div class="page-head"><h2>Soldier Dossier</h2><span class="desc">360° view — every spoke pulled to one page</span>
+        <div class="actions"><button class="btn">Print Dossier</button><button class="btn">Posting / ACR Input</button></div></div>
+      <div class="card"><div class="bd">
+        <div class="dossier-head">
+          <div class="ph">PHOTO</div>
+          <div>
+            <div style="font-size:18px;font-weight:680">Hav Surinder Singh</div>
+            <div class="meta-row">
+              <span><b>Army No</b>15487021N</span>
+              <span><b>Coy / Pl / Sec</b>A Coy / 7 Pl / Sec 21</span>
+              <span><b>Appointment</b>Section Commander</span>
+              <span><b>Trade</b>MMG No.1</span>
+              <span><b>Enrolled</b>14 Jul 2009</span>
+              <span><b>Med Cat</b><span class="tag t-green">S1H1A1</span></span>
+            </div>
+          </div>
+        </div>
+      </div></div>
+
+      <div class="grid cols-3" style="margin-top:14px">
+        <div class="card"><div class="hd"><h3>Weapon on Charge</h3></div><div class="bd">
+          <table><tbody>
+            <tr><td>MMG 7.62</td><td>SN 88210</td></tr>
+            <tr><td>Pistol 9mm</td><td>SN 44021</td></tr>
+            <tr><td>Last inspection</td><td><span class="tag t-amber">Due</span></td></tr>
+          </tbody></table></div></div>
+        <div class="card"><div class="hd"><h3>Last Firing Classification</h3></div><div class="bd">
+          <div style="font-size:22px;font-weight:680;color:var(--green)">Marksman</div>
+          <p class="hint">App practice · 88/100 · 12 May 2026</p>
+          <div class="bar g"><i style="width:88%"></i></div></div></div>
+        <div class="card"><div class="hd"><h3>Physical Fitness</h3></div><div class="bd">
+          <table><tbody>
+            <tr><td>BPET</td><td><span class="tag t-green">Pass · Excellent</span></td></tr>
+            <tr><td>2.4 km run</td><td>9:42</td></tr>
+            <tr><td>Last tested</td><td>02 Apr 2026</td></tr>
+          </tbody></table></div></div>
+      </div>
+
+      <div class="grid cols-3" style="margin-top:14px">
+        <div class="card"><div class="hd"><h3>Training Currency</h3></div><div class="bd">
+          <table><tbody>
+            <tr><td>MMG Cadre</td><td><span class="tag t-green">Current</span></td></tr>
+            <tr><td>Range Safety</td><td><span class="tag t-amber">Exp 22 Jun</span></td></tr>
+            <tr><td>JCO promotion cadre</td><td><span class="tag t-grey">Nil</span></td></tr>
+          </tbody></table></div></div>
+        <div class="card"><div class="hd"><h3>Leave Balance</h3></div><div class="bd">
+          <table><tbody>
+            <tr><td>Annual Leave</td><td>22 / 60</td></tr>
+            <tr><td>Casual Leave</td><td>09 / 30</td></tr>
+            <tr><td>Last availed</td><td>Mar 2026</td></tr>
+          </tbody></table></div></div>
+        <div class="card"><div class="hd"><h3>Posting History</h3></div><div class="bd">
+          <table><tbody>
+            <tr><td>A Coy / Sec Cdr</td><td>2023 – now</td></tr>
+            <tr><td>B Coy / MMG No.1</td><td>2019 – 2023</td></tr>
+            <tr><td>Recruit</td><td>2009 – 2019</td></tr>
+          </tbody></table></div></div>
+      </div>
+      <div class="note" style="margin-top:14px">Append-only history — postings, medical categories, weapon allocations and test results are never overwritten, so "what was true on date X" is always answerable.</div>
+    </section>
+
+    <!-- ============ LEAVE & COURSES ============ -->
+    <section class="page" id="pg-leave">
+      <div class="crumbs">Personnel / Leave &amp; Courses</div>
+      <div class="page-head"><h2>Leave &amp; Courses</h2><span class="desc">Drives "available strength" and course currency</span>
+        <div class="actions"><button class="btn primary">＋ Apply / Sanction Leave</button></div></div>
+      <div class="sec-title">Leave Register</div>
+      <div class="card"><div class="bd" style="padding:0"><table>
+        <thead><tr><th>Army No.</th><th>Name</th><th>Type</th><th>From</th><th>To</th><th>Days</th><th>Sanctioned By</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>15511002M</td><td>Sep Amit Sharma</td><td>Annual</td><td>10 Jun</td><td>09 Jul</td><td>30</td><td>Maj Khanna</td><td><span class="tag t-green">Sanctioned</span></td></tr>
+          <tr><td>15498771T</td><td>LNk Deepak Verma</td><td>Sick</td><td>02 Jun</td><td>—</td><td>—</td><td>RMO</td><td><span class="tag t-amber">Availed</span></td></tr>
+          <tr><td>15490233P</td><td>Nk Rajesh Kumar</td><td>Casual</td><td>20 Jun</td><td>23 Jun</td><td>4</td><td>Pending</td><td><span class="tag t-grey">Applied</span></td></tr>
+          <tr><td>15466190K</td><td>Sub Mahavir Prasad</td><td>Annual</td><td>01 May</td><td>14 May</td><td>14</td><td>CO</td><td><span class="tag t-red">Overstayed</span></td></tr>
+        </tbody></table></div></div>
+      <div class="sec-title">Courses (cadre / promotion / special-to-arm)</div>
+      <div class="card"><div class="bd" style="padding:0"><table>
+        <thead><tr><th>Army No.</th><th>Name</th><th>Course</th><th>Category</th><th>Institution</th><th>Dates</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td>15490233P</td><td>Nk Rajesh Kumar</td><td>Sniper Course</td><td>Special-to-arm</td><td>Inf School</td><td>Jun–Aug 26</td><td><span class="tag t-amber">In progress</span></td></tr>
+          <tr><td>15487021N</td><td>Hav Surinder Singh</td><td>MMG Cadre</td><td>Cadre</td><td>Unit</td><td>Feb 26</td><td><span class="tag t-green">Pass · A</span></td></tr>
+        </tbody></table></div></div>
+    </section>
+
+    <!-- ============ MEDICAL & DISCIPLINE ============ -->
+    <section class="page" id="pg-medical">
+      <div class="crumbs">Personnel / Medical &amp; Discipline</div>
+      <div class="page-head"><h2>Medical &amp; Discipline</h2><span class="desc">Access tightly restricted &middot; latest medical row feeds the soldier's SHAPE category</span></div>
+      <div class="note">🔒 Discipline records are restricted to CO/2IC and Subedar Major appointments. Fields below are illustrative of the register structure only.</div>
+      <div class="grid cols-2">
+        <div class="card"><div class="hd"><h3>Medical Category Register (effective-dated)</h3></div><div class="bd" style="padding:0"><table>
+          <thead><tr><th>Name</th><th>Exam Date</th><th>SHAPE</th><th>Restrictions</th><th>Review Due</th></tr></thead>
+          <tbody>
+            <tr><td>Sep Ravi Yadav</td><td>12 Mar 26</td><td><span class="tag t-amber">P2</span></td><td>No HAA</td><td>18 Jun 26</td></tr>
+            <tr><td>LNk Deepak Verma</td><td>02 Jun 26</td><td><span class="tag t-red">P3 (TBR)</span></td><td>Recat board</td><td>02 Sep 26</td></tr>
+            <tr><td>Hav Surinder Singh</td><td>02 Apr 26</td><td><span class="tag t-green">S1H1A1</span></td><td>Nil</td><td>02 Apr 27</td></tr>
+          </tbody></table></div></div>
+        <div class="card"><div class="hd"><h3>Discipline Register 🔒</h3></div><div class="bd"><div class="empty">Restricted — visible to CO / 2IC / Sub Maj only.<br>Incident · type · AA/summary action · award · date.</div></div></div>
+      </div>
+    </section>
+
+    <!-- ============ WEAPONS ============ -->
+    <section class="page" id="pg-weapons">
+      <div class="crumbs">Logistics / Weapons &amp; Ammunition</div>
+      <div class="page-head"><h2>Weapons &amp; Ammunition</h2><span class="desc">Arms accounting · serialised holdings, on-charge, serviceability</span>
+        <div class="actions"><button class="btn">Ammunition Ledger</button><button class="btn primary">＋ Issue / Return</button></div></div>
+      <div class="grid cols-4">
+        <div class="card kpi"><div class="bd"><span class="label">Weapons Held</span><span class="val">741</span><span class="delta flat">/ 768 authorized</span></div></div>
+        <div class="card kpi"><div class="bd"><span class="label">Serviceable</span><span class="val up">712</span><span class="delta up">96%</span></div></div>
+        <div class="card kpi"><div class="bd"><span class="label">In Repair / U/S</span><span class="val down">23</span><span class="delta down">+ 6 BER</span></div></div>
+        <div class="card kpi"><div class="bd"><span class="label">Inspections Overdue</span><span class="val down">4</span><span class="delta down">action req</span></div></div>
+      </div>
+      <div class="toolbar" style="margin-top:14px">
+        <input class="search" placeholder="Search serial / butt no…">
+        <select><option>All Classes</option><option>Rifle</option><option>LMG</option><option>MMG</option><option>Mortar</option><option>Pistol</option></select>
+        <span class="chip on">All</span><span class="chip">On Charge</span><span class="chip">In Kote</span><span class="chip">U/S</span>
+      </div>
+      <div class="card"><div class="bd" style="padding:0"><table>
+        <thead><tr><th>Serial No.</th><th>Butt</th><th>Type</th><th>Class</th><th>On Charge To</th><th>Location</th><th>Condition</th><th>Next Insp.</th></tr></thead>
+        <tbody>
+          <tr><td>88210</td><td>A-12</td><td>MMG 7.62</td><td>MMG</td><td>Hav S. Singh</td><td>A Coy</td><td><span class="tag t-green">Serviceable</span></td><td>14 Aug</td></tr>
+          <tr><td>44021</td><td>P-07</td><td>Pistol 9mm</td><td>Pistol</td><td>Hav S. Singh</td><td>A Coy</td><td><span class="tag t-green">Serviceable</span></td><td><span class="tag t-red">10 Jun ⚠</span></td></tr>
+          <tr><td>73119</td><td>R-221</td><td>Rifle 5.56</td><td>Rifle</td><td>Kote</td><td>Kote</td><td><span class="tag t-amber">In Repair</span></td><td>—</td></tr>
+          <tr><td>91044</td><td>M-03</td><td>81mm Mortar</td><td>Mortar</td><td>Sp Coy (crew)</td><td>Sp Coy</td><td><span class="tag t-green">Serviceable</span></td><td>30 Jul</td></tr>
+          <tr><td>60887</td><td>R-118</td><td>Rifle 5.56</td><td>Rifle</td><td>Kote</td><td>Kote</td><td><span class="tag t-red">BER</span></td><td>condemn</td></tr>
+        </tbody></table></div></div>
+      <div class="sec-title">Ammunition Ledger — running balance</div>
+      <div class="card"><div class="bd" style="padding:0"><table>
+        <thead><tr><th>Type</th><th>Txn</th><th>Qty</th><th>Sub-unit</th><th>Reference</th><th>Date</th><th>Balance</th></tr></thead>
+        <tbody>
+          <tr><td>5.56 Ball</td><td><span class="tag t-grey">Issue</span></td><td>3,000</td><td>A Coy</td><td>Range/AppPr-44</td><td>12 Jun</td><td>41,000</td></tr>
+          <tr><td>5.56 Ball</td><td><span class="tag t-red">Expenditure</span></td><td>2,840</td><td>A Coy</td><td>Range/AppPr-44</td><td>12 Jun</td><td>38,160</td></tr>
+          <tr><td>7.62 MMG</td><td><span class="tag t-green">Receipt</span></td><td>10,000</td><td>Bn</td><td>Vr 2211</td><td>05 Jun</td><td>52,000</td></tr>
+        </tbody></table></div></div>
+    </section>
+
+    <!-- ============ VEHICLES ============ -->
+    <section class="page" id="pg-vehicles">
+      <div class="crumbs">Logistics / Vehicles (MT)</div>
+      <div class="page-head"><h2>Vehicles (MT)</h2><span class="desc">Holdings, servicing, work tickets &amp; POL</span>
+        <div class="actions"><button class="btn">Work Ticket</button><button class="btn primary">＋ Log Servicing</button></div></div>
+      <div class="grid cols-4">
+        <div class="card kpi"><div class="bd"><span class="label">Vehicles Held</span><span class="val">46</span><span class="delta flat">/ 51 authorized</span></div></div>
+        <div class="card kpi"><div class="bd"><span class="label">On-Road</span><span class="val up">39</span><span class="delta up">84%</span></div></div>
+        <div class="card kpi"><div class="bd"><span class="label">Off-Road / BLR</span><span class="val down">7</span></div></div>
+        <div class="card kpi"><div class="bd"><span class="label">Services Due ≤7d</span><span class="val down">3</span></div></div>
+      </div>
+      <div class="card" style="margin-top:14px"><div class="bd" style="padding:0"><table>
+        <thead><tr><th>Reg / BA No.</th><th>Type</th><th>Odometer</th><th>Next Service</th><th>Condition</th><th>Sub-unit</th></tr></thead>
+        <tbody>
+          <tr><td>BA-31204</td><td>2.5T GS</td><td>48,210 km</td><td><span class="tag t-red">due 45,000 ⚠</span></td><td><span class="tag t-amber">Off-Road</span></td><td>HQ Coy</td></tr>
+          <tr><td>BA-30887</td><td>Jonga</td><td>21,540 km</td><td>25,000 km</td><td><span class="tag t-green">Serviceable</span></td><td>A Coy</td></tr>
+          <tr><td>BA-32119</td><td>ALS</td><td>9,300 km</td><td>10,000 km</td><td><span class="tag t-green">Serviceable</span></td><td>Sp Coy</td></tr>
+          <tr><td>BA-29002</td><td>Motorcycle</td><td>16,880 km</td><td>—</td><td><span class="tag t-red">BLR</span></td><td>HQ Coy</td></tr>
+        </tbody></table></div></div>
+      <div class="sec-title">Recent Work Tickets (POL drawn)</div>
+      <div class="card"><div class="bd" style="padding:0"><table>
+        <thead><tr><th>Vehicle</th><th>Driver</th><th>Date</th><th>Start–End km</th><th>Purpose</th><th>POL (L)</th></tr></thead>
+        <tbody>
+          <tr><td>BA-30887</td><td>Sep Amit Sharma</td><td>11 Jun</td><td>21,300–21,540</td><td>Ration draw — ASC pt</td><td>34.5</td></tr>
+          <tr><td>BA-32119</td><td>Nk R. Kumar</td><td>10 Jun</td><td>9,180–9,300</td><td>Range party move</td><td>18.0</td></tr>
+        </tbody></table></div></div>
+    </section>
+
+    <!-- ============ EQUIPMENT ============ -->
+    <section class="page" id="pg-equipment">
+      <div class="crumbs">Logistics / Equipment Stores</div>
+      <div class="page-head"><h2>Equipment Stores</h2><span class="desc">One flexible on-charge register — comms, optics, NVD, gen, clothing, stores</span>
+        <div class="actions"><button class="btn primary">＋ On-Charge / Issue</button></div></div>
+      <div class="toolbar">
+        <input class="search" placeholder="Search nomenclature / serial…">
+        <span class="chip on">All</span><span class="chip">Comms</span><span class="chip">Optics</span><span class="chip">NVD</span><span class="chip">Generator</span><span class="chip">Clothing</span>
+      </div>
+      <div class="grid cols-2">
+        <div class="card"><div class="hd"><h3>Serialised Items</h3></div><div class="bd" style="padding:0"><table>
+          <thead><tr><th>Nomenclature</th><th>Category</th><th>Serial</th><th>Held By</th><th>Condition</th></tr></thead>
+          <tbody>
+            <tr><td>Radio Set VHF</td><td>Comms</td><td>VH-2207</td><td>A Coy HQ</td><td><span class="tag t-green">Svc</span></td></tr>
+            <tr><td>Night Vision Device</td><td>NVD</td><td>NV-0441</td><td>Hav S. Singh</td><td><span class="tag t-green">Svc</span></td></tr>
+            <tr><td>Generator 5 KVA</td><td>Generator</td><td>GN-119</td><td>HQ Coy</td><td><span class="tag t-amber">Repair</span></td></tr>
+            <tr><td>Binocular 7×50</td><td>Optics</td><td>BN-3320</td><td>Sp Coy</td><td><span class="tag t-green">Svc</span></td></tr>
+          </tbody></table></div></div>
+        <div class="card"><div class="hd"><h3>Non-Serialised Stock (by quantity)</h3></div><div class="bd" style="padding:0"><table>
+          <thead><tr><th>Item</th><th>Category</th><th>On Charge</th><th>Scaled</th><th>Bal</th></tr></thead>
+          <tbody>
+            <tr><td>Combat Dress sets</td><td>Clothing</td><td>A Coy</td><td>140</td><td>132</td></tr>
+            <tr><td>Sleeping Bag (HA)</td><td>Stores</td><td>Bn</td><td>900</td><td>867</td></tr>
+            <tr><td>Jerricans 20L</td><td>Stores</td><td>HQ Coy</td><td>60</td><td>54</td></tr>
+          </tbody></table></div></div>
+      </div>
+    </section>
+
+    <!-- ============ RATION ============ -->
+    <section class="page" id="pg-ration">
+      <div class="crumbs">Logistics / Ration Accounting</div>
+      <div class="page-head"><h2>Ration Accounting</h2><span class="desc">Entitlement (scale × fed strength) vs actual issue → savings / excess &amp; costing</span>
+        <div class="actions"><button class="btn primary">＋ Fed-Strength Return</button></div></div>
+      <div class="grid cols-4">
+        <div class="card kpi"><div class="bd"><span class="label">Fed Strength (today)</span><span class="val">748</span></div></div>
+        <div class="card kpi"><div class="bd"><span class="label">Entitlement (₹/day)</span><span class="val">₹1.42L</span></div></div>
+        <div class="card kpi"><div class="bd"><span class="label">Actual Issue</span><span class="val up">₹1.31L</span><span class="delta up">saving 7.7%</span></div></div>
+        <div class="card kpi"><div class="bd"><span class="label">Wastage (MTD)</span><span class="val down">₹6,200</span></div></div>
+      </div>
+      <div class="grid cols-2" style="margin-top:14px">
+        <div class="card"><div class="hd"><h3>Ration Scale (reference data)</h3></div><div class="bd" style="padding:0"><table>
+          <thead><tr><th>Category</th><th>Item</th><th>Qty / man / day</th><th>Unit</th></tr></thead>
+          <tbody>
+            <tr><td>OR</td><td>Rice</td><td>0.180</td><td>kg</td></tr>
+            <tr><td>OR</td><td>Atta</td><td>0.120</td><td>kg</td></tr>
+            <tr><td>OR</td><td>Fresh Meat</td><td>0.110</td><td>kg</td></tr>
+            <tr><td>Special Area</td><td>Tinned Milk</td><td>0.050</td><td>L</td></tr>
+          </tbody></table></div></div>
+        <div class="card"><div class="hd"><h3>Ration Stock Ledger</h3></div><div class="bd" style="padding:0"><table>
+          <thead><tr><th>Item</th><th>Txn</th><th>Qty</th><th>Source</th><th>Bal</th></tr></thead>
+          <tbody>
+            <tr><td>Rice</td><td><span class="tag t-green">Receipt</span></td><td>1,800 kg</td><td>ASC pt</td><td>4,200</td></tr>
+            <tr><td>Rice</td><td><span class="tag t-grey">Issue</span></td><td>135 kg</td><td>Cookhouse</td><td>4,065</td></tr>
+            <tr><td>Fresh Meat</td><td><span class="tag t-amber">Wastage</span></td><td>4 kg</td><td>Spoilage</td><td>—</td></tr>
+          </tbody></table></div></div>
+      </div>
+    </section>
+
+    <!-- ============ TRAINING ============ -->
+    <section class="page" id="pg-training">
+      <div class="crumbs">Readiness / Weapon Training</div>
+      <div class="page-head"><h2>Weapon Training</h2><span class="desc">"valid_until" drives training currency — who is overdue for re-qualification</span>
+        <div class="actions"><button class="btn primary">＋ Record Qualification</button></div></div>
+      <div class="grid cols-3">
+        <div class="card kpi"><div class="bd"><span class="label">Mandatory Quals Current</span><span class="val up">88%</span><div class="bar g"><i style="width:88%"></i></div></div></div>
+        <div class="card kpi"><div class="bd"><span class="label">Expiring ≤30 days</span><span class="val down">37</span></div></div>
+        <div class="card kpi"><div class="bd"><span class="label">Overdue Re-qual</span><span class="val down">14</span></div></div>
+      </div>
+      <div class="card" style="margin-top:14px"><div class="bd" style="padding:0"><table>
+        <thead><tr><th>Army No.</th><th>Name</th><th>Course / Qualification</th><th>Category</th><th>Completed</th><th>Result</th><th>Valid Until</th></tr></thead>
+        <tbody>
+          <tr><td>15487021N</td><td>Hav S. Singh</td><td>Range Safety Officer</td><td>Cadre</td><td>22 Jun 25</td><td>Pass</td><td><span class="tag t-amber">22 Jun 26</span></td></tr>
+          <tr><td>15502874L</td><td>Sep R. Yadav</td><td>Weapon Handling Test</td><td>Mandatory</td><td>10 Jan 26</td><td>Pass</td><td><span class="tag t-green">10 Jan 27</span></td></tr>
+          <tr><td>15498771T</td><td>LNk D. Verma</td><td>Special-to-arm (Pioneer)</td><td>Special</td><td>05 May 24</td><td>Graded A</td><td><span class="tag t-red">Expired</span></td></tr>
+        </tbody></table></div></div>
+    </section>
+
+    <!-- ============ SHOOTING ============ -->
+    <section class="page" id="pg-shooting">
+      <div class="crumbs">Readiness / Shooting &amp; Range</div>
+      <div class="page-head"><h2>Shooting / Range Classification</h2><span class="desc">Links to ammunition expenditure &amp; the weapon fired — trend is a key fitness-for-role signal</span>
+        <div class="actions"><button class="btn">New Practice</button><button class="btn primary">＋ Record Results</button></div></div>
+      <div class="grid cols-2">
+        <div class="card"><div class="hd"><h3>Classification Trend — A Coy</h3></div><div class="bd">
+          <div class="chart">
+            <div class="col"><div class="b" style="height:48%"></div><small>22%</small></div>
+            <div class="col"><div class="b" style="height:55%"></div><small>26%</small></div>
+            <div class="col"><div class="b" style="height:62%"></div><small>29%</small></div>
+            <div class="col"><div class="b" style="height:68%;background:var(--green)"></div><small>31%</small></div>
+          </div>
+          <div class="chart-x"><span>2023</span><span>2024</span><span>2025</span><span>2026</span></div>
+          <p class="hint" style="margin-top:8px">% classified Marksman over successive ARM classifications.</p>
+        </div></div>
+        <div class="card"><div class="hd"><h3>Latest Practice — App Pr 44</h3></div><div class="bd" style="padding:0"><table>
+          <thead><tr><th>Name</th><th>Weapon</th><th>Score</th><th>Class</th><th>Rds</th></tr></thead>
+          <tbody>
+            <tr><td>Hav S. Singh</td><td>SN 88210</td><td>88</td><td><span class="tag t-green">Marksman</span></td><td>40</td></tr>
+            <tr><td>Sep R. Yadav</td><td>SN 73344</td><td>71</td><td><span class="tag t-amber">1st Class</span></td><td>40</td></tr>
+            <tr><td>LNk D. Verma</td><td>SN 60112</td><td>49</td><td><span class="tag t-red">Failed</span></td><td>40</td></tr>
+          </tbody></table></div></div>
+      </div>
+      <div class="note" style="margin-top:14px">Each result links to <b>ammunition_ledger</b> (expenditure) and <b>weapon</b> (which weapon fired) — feeding the training-to-shooting correlation insight.</div>
+    </section>
+
+    <!-- ============ FITNESS ============ -->
+    <section class="page" id="pg-fitness">
+      <div class="crumbs">Readiness / Physical Fitness</div>
+      <div class="page-head"><h2>Physical Fitness</h2><span class="desc">BPET / PPT — cross-referenced with medical category (low-cat tested differently / exempt)</span>
+        <div class="actions"><button class="btn primary">＋ Record Test</button></div></div>
+      <div class="grid cols-4">
+        <div class="card kpi"><div class="bd"><span class="label">BPET Pass Rate</span><span class="val up">91%</span><div class="bar g"><i style="width:91%"></i></div></div></div>
+        <div class="card kpi"><div class="bd"><span class="label">PPT Pass Rate</span><span class="val">86%</span><div class="bar a"><i style="width:86%"></i></div></div></div>
+        <div class="card kpi"><div class="bd"><span class="label">Exempt (Low Med Cat)</span><span class="val flat">38</span></div></div>
+        <div class="card kpi"><div class="bd"><span class="label">Trending Down</span><span class="val down">11</span><span class="delta down">flag for review</span></div></div>
+      </div>
+      <div class="card" style="margin-top:14px"><div class="bd" style="padding:0"><table>
+        <thead><tr><th>Name</th><th>Test</th><th>Event</th><th>Raw</th><th>Grade</th><th>Overall</th><th>Date</th></tr></thead>
+        <tbody>
+          <tr><td>Hav S. Singh</td><td>BPET</td><td>2.4 km run</td><td>9:42</td><td><span class="tag t-green">Excellent</span></td><td><span class="tag t-green">Pass</span></td><td>02 Apr</td></tr>
+          <tr><td>Sep R. Yadav</td><td>BPET</td><td>2.4 km run</td><td>11:58</td><td><span class="tag t-amber">Satisfactory</span></td><td><span class="tag t-amber">Pass</span></td><td>02 Apr</td></tr>
+          <tr><td>Sep A. Sharma</td><td>PPT</td><td>Chin-ups</td><td>4</td><td><span class="tag t-red">Fail</span></td><td><span class="tag t-red">Fail</span></td><td>02 Apr</td></tr>
+        </tbody></table></div></div>
+    </section>
+
+    <!-- ============ PAY ============ -->
+    <section class="page" id="pg-pay">
+      <div class="crumbs">Finance / Pay &amp; Allowances</div>
+      <div class="page-head"><h2>Pay &amp; Allowances</h2><span class="desc">Inputs, entitlements &amp; reconciliation only — disbursement remains with PAO / CDA</span>
+        <div class="actions"><button class="btn primary">＋ New Pay Input</button></div></div>
+      <div class="note">🔒 Disbursement is the authoritative function of the PAO/CDA system. This module manages <b>inputs and reconciliation</b> at unit level — not money movement. Permissions are tight and every action is audited.</div>
+      <div class="grid cols-2">
+        <div class="card"><div class="hd"><h3>Allowance Rules (reference)</h3></div><div class="bd" style="padding:0"><table>
+          <thead><tr><th>Allowance</th><th>Eligibility</th><th>Basis</th><th>Effective</th></tr></thead>
+          <tbody>
+            <tr><td>Field Area</td><td>Posted to notified field area</td><td>Rate band</td><td>01 Apr 26 –</td></tr>
+            <tr><td>High Altitude</td><td>HAA ≥ 9,000 ft</td><td>Tiered</td><td>01 Apr 26 –</td></tr>
+            <tr><td>Siachen</td><td>Glacier posting</td><td>Flat</td><td>01 Apr 26 –</td></tr>
+          </tbody></table></div></div>
+        <div class="card"><div class="hd"><h3>Monthly Pay Inputs — Jun 2026</h3></div><div class="bd" style="padding:0"><table>
+          <thead><tr><th>Name</th><th>Input Type</th><th>Allowance</th><th>Amount</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Sep A. Sharma</td><td>Allowance Stop</td><td>Field Area</td><td>—</td><td><span class="tag t-grey">Draft</span></td></tr>
+            <tr><td>Nk R. Kumar</td><td>Allowance Start</td><td>HAA</td><td>+ band</td><td><span class="tag t-amber">Submitted</span></td></tr>
+            <tr><td>Hav S. Singh</td><td>Increment</td><td>—</td><td>+ inc</td><td><span class="tag t-green">Reconciled</span></td></tr>
+          </tbody></table></div></div>
+      </div>
+    </section>
+
+    <!-- ============ ANALYTICS ============ -->
+    <section class="page" id="pg-analytics">
+      <div class="crumbs">Command / Analytics &amp; Readiness</div>
+      <div class="page-head"><h2>Analytics &amp; Readiness</h2><span class="desc">Sits on top of operational tables — views &amp; nightly summaries, not live transactional load</span>
+        <div class="actions"><button class="btn">Tune Weights</button><button class="btn">Export</button></div></div>
+
+      <div class="sec-title">Unit Readiness Index — dimension breakdown (CO-tunable weights)</div>
+      <div class="card"><div class="bd" style="padding:0"><table>
+        <thead><tr><th>Dimension</th><th>Source</th><th>Metric</th><th>Score</th><th>Weight</th><th></th></tr></thead>
+        <tbody>
+          <tr><td>Manpower availability</td><td>personnel, leave, medical</td><td>Avail SHAPE-1 ÷ auth</td><td><b>81</b></td><td>25%</td><td><div class="bar g" style="width:140px"><i style="width:81%"></i></div></td></tr>
+          <tr><td>Weapon serviceability</td><td>weapon, maintenance</td><td>Svc ÷ held</td><td><b>96</b></td><td>15%</td><td><div class="bar g" style="width:140px"><i style="width:96%"></i></div></td></tr>
+          <tr><td>Shooting proficiency</td><td>firing_result</td><td>% Mksm / 1st cl</td><td><b>75</b></td><td>15%</td><td><div class="bar a" style="width:140px"><i style="width:75%"></i></div></td></tr>
+          <tr><td>Training currency</td><td>training_record</td><td>% current quals</td><td><b>88</b></td><td>15%</td><td><div class="bar g" style="width:140px"><i style="width:88%"></i></div></td></tr>
+          <tr><td>Physical fitness</td><td>fitness, medical</td><td>% passing BPET/PPT</td><td><b>89</b></td><td>10%</td><td><div class="bar g" style="width:140px"><i style="width:89%"></i></div></td></tr>
+          <tr><td>Vehicle availability</td><td>vehicle, servicing</td><td>% on-road</td><td><b>84</b></td><td>10%</td><td><div class="bar a" style="width:140px"><i style="width:84%"></i></div></td></tr>
+          <tr><td>Equipment holding</td><td>equipment, org_unit</td><td>Held vs scaled · svc</td><td><b>72</b></td><td>10%</td><td><div class="bar r" style="width:140px"><i style="width:72%"></i></div></td></tr>
+          <tr style="background:var(--accentSoft)"><td colspan="3"><b>Weighted Unit Readiness Index</b></td><td><b>78</b></td><td>100%</td><td><div class="bar g" style="width:140px"><i style="width:78%"></i></div></td></tr>
+        </tbody></table></div></div>
+
+      <div class="grid cols-2" style="margin-top:16px">
+        <div class="card"><div class="hd"><h3>Currency &amp; Expiry Tracker — everything overdue / due soon</h3></div><div class="bd" style="padding:0"><table>
+          <thead><tr><th>Item</th><th>Domain</th><th>Due</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>Pistol SN 44021 inspection</td><td>Weapon</td><td>10 Jun</td><td><span class="tag t-red">Overdue</span></td></tr>
+            <tr><td>BA-31204 service</td><td>Vehicle</td><td>12 Jun</td><td><span class="tag t-red">Overdue</span></td></tr>
+            <tr><td>Pioneer special-to-arm</td><td>Training</td><td>05 May</td><td><span class="tag t-red">Expired</span></td></tr>
+            <tr><td>Sep Yadav medical review</td><td>Medical</td><td>18 Jun</td><td><span class="tag t-amber">Due soon</span></td></tr>
+            <tr><td>Nk Kumar PIS card</td><td>Document</td><td>30 Jun</td><td><span class="tag t-amber">Due soon</span></td></tr>
+          </tbody></table></div></div>
+        <div class="card"><div class="hd"><h3>Predictive Maintenance</h3></div><div class="bd" style="padding:0"><table>
+          <thead><tr><th>Asset</th><th>Signal</th><th>Forecast</th></tr></thead>
+          <tbody>
+            <tr><td>MMG SN 88210</td><td>Barrel life 78% (rounds)</td><td><span class="tag t-amber">~6 wks</span></td></tr>
+            <tr><td>BA-32119 ALS</td><td>Approaching 10,000 km</td><td><span class="tag t-amber">~700 km</span></td></tr>
+            <tr><td>Rifle SN 73119</td><td>Repeat stoppages logged</td><td><span class="tag t-red">Inspect now</span></td></tr>
+          </tbody></table></div></div>
+      </div>
+
+      <div class="grid cols-2" style="margin-top:16px">
+        <div class="card"><div class="hd"><h3>Manpower Projection — availability vs taskings</h3></div><div class="bd">
+          <div class="chart">
+            <div class="col"><div class="b" style="height:85%"></div><small>716</small></div>
+            <div class="col"><div class="b" style="height:72%;background:var(--amber)"></div><small>608</small></div>
+            <div class="col"><div class="b" style="height:60%;background:var(--red)"></div><small>512</small></div>
+            <div class="col"><div class="b" style="height:80%"></div><small>678</small></div>
+          </div>
+          <div class="chart-x"><span>Jun</span><span>Jul</span><span>Aug ⚠</span><span>Sep</span></div>
+          <p class="hint" style="margin-top:8px">Planned leave + courses + postings-out overlaid → Aug dip before exercise.</p>
+        </div></div>
+        <div class="card"><div class="hd"><h3>Held vs Authorized (Mod M)</h3></div><div class="bd" style="padding:0"><table>
+          <thead><tr><th>Resource</th><th>Held</th><th>Auth</th><th>%</th></tr></thead>
+          <tbody>
+            <tr><td>Men</td><td>812</td><td>879</td><td><span class="tag t-amber">92%</span></td></tr>
+            <tr><td>Weapons</td><td>741</td><td>768</td><td><span class="tag t-green">96%</span></td></tr>
+            <tr><td>Vehicles</td><td>46</td><td>51</td><td><span class="tag t-amber">90%</span></td></tr>
+            <tr><td>Radios (VHF)</td><td>58</td><td>72</td><td><span class="tag t-red">81%</span></td></tr>
+          </tbody></table></div></div>
+      </div>
+    </section>
+
+    <!-- ============ ORG & ESTABLISHMENT ============ -->
+    <section class="page" id="pg-org">
+      <div class="crumbs">Administration / Org &amp; Establishment</div>
+      <div class="page-head"><h2>Org &amp; Establishment</h2><span class="desc">Self-referencing unit tree — Bn → Coy → Pl → Sec · reference data, not code</span>
+        <div class="actions"><button class="btn">Edit Mod M</button><button class="btn primary">＋ Add Unit</button></div></div>
+      <div class="grid cols-2">
+        <div class="card"><div class="hd"><h3>Unit Tree</h3></div><div class="bd" style="font-size:13px;line-height:1.9">
+          <div>▾ <b>17 RAJPUT (Battalion)</b></div>
+          <div style="padding-left:18px">▾ A Company <span class="tag t-grey">Rifle</span></div>
+          <div style="padding-left:36px">▸ 7 Platoon → Sec 19, 20, 21</div>
+          <div style="padding-left:36px">▸ 8 Platoon · 9 Platoon</div>
+          <div style="padding-left:18px">▸ B / C / D Company <span class="tag t-grey">Rifle</span></div>
+          <div style="padding-left:18px">▾ Support Company <span class="tag t-grey">Support</span></div>
+          <div style="padding-left:36px">▸ Mortar · ATGM · MMG · Pioneer · Recce/Ghatak · Signals</div>
+          <div style="padding-left:18px">▸ HQ Company <span class="tag t-grey">HQ</span></div>
+        </div></div>
+        <div class="card"><div class="hd"><h3>Establishment — Held vs Authorized</h3></div><div class="bd" style="padding:0"><table>
+          <thead><tr><th>Unit</th><th>Type</th><th>Auth</th><th>Held</th><th>State</th></tr></thead>
+          <tbody>
+            <tr><td>A Coy</td><td>Rifle</td><td>120</td><td>112</td><td><span class="tag t-green">93%</span></td></tr>
+            <tr><td>B Coy</td><td>Rifle</td><td>120</td><td>101</td><td><span class="tag t-amber">84%</span></td></tr>
+            <tr><td>Sp Coy</td><td>Support</td><td>180</td><td>129</td><td><span class="tag t-red">72%</span></td></tr>
+            <tr><td>HQ Coy</td><td>HQ</td><td>160</td><td>141</td><td><span class="tag t-green">88%</span></td></tr>
+          </tbody></table></div></div>
+      </div>
+      <div class="sec-title">Ranks &amp; Appointments (reference tables)</div>
+      <div class="card"><div class="bd" style="padding:0"><table>
+        <thead><tr><th>Appointment</th><th>Authorized Rank</th><th>Unit Level</th><th>Incumbent</th></tr></thead>
+        <tbody>
+          <tr><td>Commanding Officer</td><td>Col / Lt Col</td><td>Battalion</td><td>Lt Col A. Mehra</td></tr>
+          <tr><td>Subedar Major</td><td>Sub Maj</td><td>Battalion</td><td>Sub Maj R. Pillai</td></tr>
+          <tr><td>Company Commander</td><td>Maj</td><td>Company</td><td>Maj V. Khanna (A)</td></tr>
+          <tr><td>Section Commander</td><td>Hav</td><td>Section</td><td>Hav S. Singh (Sec 21)</td></tr>
+        </tbody></table></div></div>
+    </section>
+
+    <!-- ============ RBAC & AUDIT ============ -->
+    <section class="page" id="pg-admin">
+      <div class="crumbs">Administration / RBAC &amp; Audit</div>
+      <div class="page-head"><h2>RBAC &amp; Audit Trail</h2><span class="desc">Roles mapped to appointments, not individuals · row-level security · immutable audit log</span></div>
+      <div class="grid cols-2">
+        <div class="card"><div class="hd"><h3>Roles → Appointments</h3></div><div class="bd" style="padding:0"><table>
+          <thead><tr><th>Role</th><th>Scope</th><th>Permissions</th></tr></thead>
+          <tbody>
+            <tr><td>CO / 2IC</td><td>Battalion</td><td><span class="tag t-green">Read-all + Approve</span></td></tr>
+            <tr><td>Adjutant</td><td>Battalion</td><td>Personnel</td></tr>
+            <tr><td>Subedar Major</td><td>Battalion</td><td>Discipline / Leave</td></tr>
+            <tr><td>Quartermaster</td><td>Battalion</td><td>Ration / Equipment / Clothing</td></tr>
+            <tr><td>Kote NCO</td><td>Battalion</td><td>Weapons</td></tr>
+            <tr><td>MTO</td><td>Battalion</td><td>Vehicles</td></tr>
+            <tr><td>Coy Cdr</td><td><span class="tag t-amber">Own company only</span></td><td>Read own coy</td></tr>
+            <tr><td>Training JCO</td><td>Battalion</td><td>Training / Shooting / Fitness</td></tr>
+          </tbody></table></div>
+          <div class="bd" style="border-top:1px solid var(--line2)"><p class="hint" style="margin:0">Row-level security enforced at the database layer (e.g. PostgreSQL RLS) — a Coy Cdr's queries return only his own company's rows, not just a filtered UI.</p></div></div>
+        <div class="card"><div class="hd"><h3>Audit Trail (immutable)</h3></div><div class="bd" style="padding:0"><table>
+          <thead><tr><th>When</th><th>User / Role</th><th>Action</th><th>Record</th></tr></thead>
+          <tbody>
+            <tr><td>15 Jun 09:42</td><td>Kote NCO</td><td><span class="tag t-amber">UPDATE</span></td><td>weapon #44021 condition</td></tr>
+            <tr><td>15 Jun 09:10</td><td>Adjutant</td><td><span class="tag t-green">INSERT</span></td><td>leave_record #2207</td></tr>
+            <tr><td>14 Jun 18:55</td><td>CO</td><td><span class="tag t-green">APPROVE</span></td><td>pay_input batch Jun-26</td></tr>
+            <tr><td>14 Jun 17:30</td><td>MTO</td><td><span class="tag t-red">DELETE→archived</span></td><td>vehicle_usage #889</td></tr>
+          </tbody></table></div>
+          <div class="bd" style="border-top:1px solid var(--line2)"><p class="hint" style="margin:0">Every create/update/delete on sensitive records logs who / when / what + before/after — non-negotiable for pay &amp; arms accounting.</p></div></div>
+      </div>
+    </section>
+
+    <div class="ftr">Infantry Battalion ERP — wireframe v1 · on-premise / air-gapped · PostgreSQL + Django + Metabase (per design doc)</div>
+  </main>
+</div>
+
+<script>
+  function go(pg){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('show'));
+    var el=document.getElementById('pg-'+pg); if(el) el.classList.add('show');
+    document.querySelectorAll('.side a').forEach(a=>a.classList.toggle('active',a.dataset.pg===pg));
+    document.getElementById('main').scrollTop=0;
+  }
+  function setRole(r){
+    // illustrative: show scope hint; in a real build this would re-filter nav + rows via RLS
+    var ad=document.querySelector('#roleSel');
+    document.querySelector('.topbar .avatar').textContent = r.split('—')[0].trim().split(/[ /]/)[0].slice(0,2).toUpperCase();
+  }
+</script>
+</body>
+</html>
