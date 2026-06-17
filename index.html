@@ -201,6 +201,7 @@
     <a data-pg="court" onclick="go('court')"><span class="ic">⚖</span>Court Cases</a>
     <a data-pg="welfare" onclick="go('welfare')"><span class="ic">♥</span>AWWA Welfare<span class="badge" style="background:var(--soft)">🔒</span></a>
     <a data-pg="admin" onclick="go('admin')"><span class="ic">⚿</span>RBAC &amp; Audit</a>
+    <a data-pg="architecture" onclick="go('architecture')"><span class="ic">❖</span>System Architecture</a>
   </nav>
 
   <!-- MAIN -->
@@ -1006,6 +1007,148 @@
         </table></div></div>
       </div>
       <p class="hint" style="margin-top:8px">All names/wards masked in this view. Welfare casework is handled with confidentiality; only aggregate counts surface in any roll-up.</p>
+    </section>
+
+    <!-- ============ SYSTEM ARCHITECTURE ============ -->
+    <section class="page" id="pg-architecture">
+      <div class="crumbs">Administration / System Architecture</div>
+      <div class="page-head"><h2>System Architecture</h2><span class="desc">Fully self-contained, air-gapped deployment on the unit LAN</span>
+        <div class="actions"><button class="btn">Download SVG</button><button class="btn">Print</button></div></div>
+      <div class="note">INDRA runs entirely on the unit's own closed network. There is <b>no connection of any kind</b> to the internet, cloud, email, the Army Data Network or PAO/CDA systems. Outputs are produced locally and handled by hand; all data, identity and backups reside on the unit LAN.</div>
+      <div class="card"><div class="bd" style="overflow:auto">
+<svg id="archsvg" viewBox="0 0 1180 900" style="width:100%;height:auto;min-width:940px;display:block" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="arch-ttl arch-dsc">
+  <title id="arch-ttl">INDRA fully self-contained, air-gapped unit-level LAN architecture</title>
+  <desc id="arch-dsc">The INDRA ERP on one closed, unit-owned LAN with no interaction with any external system. A hardened battalion server room and ten distributed terminals across the lines — Bn HQ and six RLS-scoped Coy Cdr terminals (A, B, C, D, Support, HQ Companies), QM and Kote, MT under the MTO, and the RMO. An absolute air gap separates it from the internet, cloud, email, the Army Data Network and PAO/CDA systems. Nothing crosses the perimeter: outputs are printed locally and handled by hand, and all data, identity and backups reside on the unit LAN.</desc>
+  <style>
+    #archsvg{--ag:#313f2a;--ag2:#4a5d3f;--agsoft:#e9eee2;--agold:#c8961a;--ared:#9a3636;--aredsoft:#f6e3e3;--aink:#1e241c;--asoft:#6b7363;--aline:#c1c7bb;--apaper:#ffffff;--acanvas:#f3f5ef;--agrey:#e7e9e4;font-family:var(--font-sans,'Segoe UI',system-ui,sans-serif);}
+    #archsvg .ttl{font-size:22px;font-weight:700;fill:var(--ag);}
+    #archsvg .sub{font-size:12.5px;fill:var(--asoft);}
+    #archsvg .hh{font-size:12.5px;font-weight:700;fill:var(--ag);}
+    #archsvg .h{font-size:12.5px;font-weight:700;fill:var(--aink);}
+    #archsvg .s{font-size:11px;fill:var(--asoft);}
+    #archsvg .sm{font-size:9.5px;fill:var(--asoft);}
+    #archsvg .red{fill:var(--ared);font-weight:700;}
+    #archsvg .box{fill:var(--apaper);stroke:var(--ag2);stroke-width:1.4;}
+    #archsvg .layer{fill:var(--agsoft);stroke:var(--aline);stroke-width:1;}
+    #archsvg .db{fill:var(--apaper);stroke:var(--agold);stroke-width:2;}
+    #archsvg .node{fill:var(--apaper);stroke:var(--aline);stroke-width:1.2;}
+    #archsvg .self{fill:#eef3e8;stroke:var(--ag2);stroke-width:1.6;}
+    #archsvg .bb{stroke:var(--ag);stroke-width:6;fill:none;}
+    #archsvg .lk{stroke:var(--ag2);stroke-width:1.6;fill:none;}
+    #archsvg .sw{fill:var(--ag);}
+    #archsvg .dash{stroke-dasharray:7 5;}
+  </style>
+
+  <rect x="0" y="0" width="1180" height="900" fill="var(--acanvas)"/>
+
+  <text x="24" y="36" class="ttl">INDRA — Fully Self-Contained, Air-Gapped Unit LAN</text>
+  <text x="24" y="58" class="sub">2/9 GR · zero interaction with any system outside the unit network — nothing crosses the perimeter</text>
+
+  <rect x="40" y="78" width="1100" height="56" rx="8" fill="var(--agrey)" stroke="var(--aline)"/>
+  <text x="590" y="101" text-anchor="middle" class="h" fill="var(--asoft)">OUTSIDE THE UNIT LAN — Internet · Cloud · Email · Army Data Network · PAO/CDA &amp; other official systems</text>
+  <text x="590" y="121" text-anchor="middle" class="red">✕  INDRA has no connection to any of these — none  ✕</text>
+
+  <rect x="40" y="144" width="1100" height="34" rx="6" class="dash" fill="var(--aredsoft)" stroke="var(--ared)" stroke-width="1.8"/>
+  <text x="590" y="166" text-anchor="middle" class="red">ABSOLUTE AIR GAP — no network link · no data diode · no media transfer to any external system</text>
+
+  <rect x="40" y="190" width="1100" height="626" rx="14" fill="#f0f3ec" stroke="var(--ag2)" stroke-width="2.5"/>
+  <text x="60" y="214" class="hh">CANTONMENT PERIMETER · 2/9 GR — closed, unit-owned network · zero inbound or outbound connections</text>
+
+  <rect x="64" y="234" width="336" height="392" rx="10" class="box"/>
+  <text x="80" y="258" class="hh">Bn Server Room — hardened · access-controlled</text>
+  <rect x="84" y="270" width="296" height="44" rx="6" class="layer"/>
+  <text x="96" y="288" class="h">Application / Web</text>
+  <text x="96" y="305" class="s">Nginx · Gunicorn · Django / Frappe</text>
+  <rect x="84" y="322" width="296" height="44" rx="6" class="layer"/>
+  <text x="96" y="340" class="h">Analytics / BI</text>
+  <text x="96" y="357" class="s">Metabase · Superset (read-only)</text>
+  <rect x="84" y="374" width="296" height="44" rx="6" class="layer"/>
+  <text x="96" y="392" class="h">Identity &amp; RBAC</text>
+  <text x="96" y="409" class="s">Keycloak / LDAP — roles = appointments</text>
+  <rect x="84" y="426" width="296" height="50" rx="6" class="db"/>
+  <text x="96" y="445" class="h">Database — PostgreSQL ★</text>
+  <text x="96" y="462" class="s">Row-Level Security · audit triggers · effective-dated</text>
+  <rect x="84" y="484" width="296" height="42" rx="6" class="layer"/>
+  <text x="96" y="501" class="h">Backup (on-unit)</text>
+  <text x="96" y="517" class="s">Encrypted NAS — nightly</text>
+  <rect x="84" y="534" width="296" height="40" rx="6" class="dash" fill="#fff" stroke="var(--ag2)"/>
+  <text x="96" y="551" class="h">Offline copy → unit safe</text>
+  <text x="96" y="567" class="s">media rotated, kept on-unit</text>
+
+  <rect x="414" y="300" width="100" height="60" rx="8" class="box"/>
+  <text x="464" y="324" text-anchor="middle" class="h">Core switch</text>
+  <text x="464" y="340" text-anchor="middle" class="h">+ firewall</text>
+  <text x="464" y="354" text-anchor="middle" class="sm">no WAN port</text>
+  <line x1="400" y1="330" x2="414" y2="330" class="lk"/>
+  <polyline points="514,318 514,288 820,288 820,296" class="lk"/>
+
+  <rect x="528" y="234" width="584" height="392" rx="10" fill="#fbfcf9" stroke="var(--ag2)" stroke-width="1.4"/>
+  <text x="548" y="257" class="hh">DISTRIBUTED ACROSS UNIT LINES — separate buildings, ONE isolated LAN</text>
+  <text x="548" y="274" class="s">Unit-owned fibre backbone · managed switches · VLAN per sub-unit · no internet path</text>
+
+  <line x1="820" y1="288" x2="820" y2="536" class="bb"/>
+  <text x="820" y="556" text-anchor="middle" class="sm">LAN backbone (unit fibre)</text>
+
+  <g class="lk">
+    <line x1="798" y1="322" x2="826" y2="322"/><line x1="798" y1="374" x2="826" y2="374"/><line x1="798" y1="426" x2="826" y2="426"/><line x1="798" y1="478" x2="826" y2="478"/><line x1="798" y1="530" x2="826" y2="530"/>
+  </g>
+  <g class="sw">
+    <rect x="814" y="316" width="12" height="12" rx="2"/><rect x="814" y="368" width="12" height="12" rx="2"/><rect x="814" y="420" width="12" height="12" rx="2"/><rect x="814" y="472" width="12" height="12" rx="2"/><rect x="814" y="524" width="12" height="12" rx="2"/>
+  </g>
+
+  <rect x="548" y="300" width="250" height="44" rx="6" class="node"/>
+  <text x="560" y="320" class="h">Bn HQ</text><text x="560" y="336" class="sm">CO · 2IC · Adjt · Sub Maj — read-all</text>
+  <rect x="548" y="352" width="250" height="44" rx="6" class="node"/>
+  <text x="560" y="372" class="h">A Company</text><text x="560" y="388" class="sm">Coy Cdr · RLS-scoped to A Coy</text>
+  <rect x="548" y="404" width="250" height="44" rx="6" class="node"/>
+  <text x="560" y="424" class="h">B Company</text><text x="560" y="440" class="sm">Coy Cdr · RLS-scoped to B Coy</text>
+  <rect x="548" y="456" width="250" height="44" rx="6" class="node"/>
+  <text x="560" y="476" class="h">C Company</text><text x="560" y="492" class="sm">Coy Cdr · RLS-scoped to C Coy</text>
+  <rect x="548" y="508" width="250" height="44" rx="6" class="node"/>
+  <text x="560" y="528" class="h">D Company</text><text x="560" y="544" class="sm">Coy Cdr · RLS-scoped to D Coy</text>
+
+  <rect x="842" y="300" width="250" height="44" rx="6" class="node"/>
+  <text x="854" y="320" class="h">Support Company</text><text x="854" y="336" class="sm">Coy Cdr · RLS-scoped to Sp Coy</text>
+  <rect x="842" y="352" width="250" height="44" rx="6" class="node"/>
+  <text x="854" y="372" class="h">HQ Company</text><text x="854" y="388" class="sm">Coy Cdr · RLS-scoped to HQ Coy</text>
+  <rect x="842" y="404" width="250" height="44" rx="6" class="node"/>
+  <text x="854" y="424" class="h">QM &amp; Kote</text><text x="854" y="440" class="sm">Quartermaster · Kote NCO</text>
+  <rect x="842" y="456" width="250" height="44" rx="6" class="node"/>
+  <text x="854" y="476" class="h">MT</text><text x="854" y="492" class="sm">MTO — vehicles &amp; POL</text>
+  <rect x="842" y="508" width="250" height="44" rx="6" class="node"/>
+  <text x="854" y="528" class="h">RMO</text><text x="854" y="544" class="sm">MI Room · medical (restricted)</text>
+
+  <text x="60" y="652" class="hh" font-size="12.5">SELF-CONTAINED — INDRA produces only local outputs and depends on no external system</text>
+
+  <rect x="64" y="662" width="520" height="142" rx="10" class="self"/>
+  <text x="82" y="686" class="h">Outputs stay local &amp; physical</text>
+  <text x="82" y="710" class="s">• Returns · musters · nominal rolls printed on-unit</text>
+  <text x="82" y="730" class="s">• Filed / carried by hand within the unit</text>
+  <text x="82" y="750" class="s">• Any onward entry into separate official systems is</text>
+  <text x="92" y="768" class="s">done by staff manually — INDRA itself never connects</text>
+
+  <rect x="600" y="662" width="512" height="142" rx="10" class="self"/>
+  <text x="618" y="686" class="h">Everything resides on the unit LAN</text>
+  <text x="618" y="710" class="s">• App · database · identity · analytics · backups</text>
+  <text x="618" y="730" class="s">• Encrypted NAS + offline media kept in unit safe</text>
+  <text x="618" y="750" class="s">• No cloud · no remote host · no external dependency</text>
+  <text x="618" y="768" class="s">• Patching via vetted media — controlled, on-unit only</text>
+
+  <rect x="44" y="826" width="15" height="15" rx="3" fill="var(--ag)"/>
+  <text x="66" y="838" class="s">Unit network — fully self-contained</text>
+  <rect x="360" y="826" width="15" height="15" rx="3" fill="var(--ared)"/>
+  <text x="382" y="838" class="s">Absolute air gap — no path</text>
+  <rect x="620" y="826" width="15" height="15" rx="3" fill="var(--agrey)" stroke="var(--aline)"/>
+  <text x="642" y="838" class="s">Outside systems — no connection of any kind</text>
+  <text x="44" y="866" class="sm">Enforced everywhere: RBAC by appointment · PostgreSQL Row-Level Security · immutable audit trail · encrypted + offline backups · USB/endpoint control · no Wi-Fi or personal devices</text>
+</svg>
+      </div></div>
+
+      <div class="grid cols-3" style="margin-top:14px">
+        <div class="card"><div class="hd"><h3>Isolation</h3></div><div class="bd"><p class="hint" style="margin:0">Absolute air gap — no internet, cloud, email, ADN or PAO/CDA link. Nothing crosses the perimeter in either direction.</p></div></div>
+        <div class="card"><div class="hd"><h3>Central core</h3></div><div class="bd"><p class="hint" style="margin:0">One hardened server room runs app, PostgreSQL (RLS + audit), identity and analytics; backups stay on-unit (NAS + offline safe).</p></div></div>
+        <div class="card"><div class="hd"><h3>Distributed &amp; scoped</h3></div><div class="bd"><p class="hint" style="margin:0">Ten terminals across the lines on one unit-owned LAN; each Coy Cdr terminal is row-level scoped to its own company.</p></div></div>
+      </div>
     </section>
 
     <div class="ftr">INDRA — Integrated Battalion Defence Resource Application · 2/9 GR · wireframe v1 · on-premise / air-gapped · PostgreSQL + Django + Metabase (per design doc)</div>
