@@ -157,7 +157,7 @@
     <label style="font-size:11px;opacity:.8">Viewing as role:</label>
     <select id="roleSel" onchange="setRole(this.value)">
       <option>CO / 2IC — read-all + approve</option>
-      <option>Adjutant — Personnel</option>
+      <option>Adjutant — Personnel / Discipline</option>
       <option>Quartermaster — Ration/Equipment</option>
       <option>Kote NCO — Weapons</option>
       <option>MTO — Vehicles</option>
@@ -409,7 +409,7 @@
           <tr><td>Review due</td><td style="text-align:right">02 Apr 2027</td></tr>
           <tr><td>Restrictions</td><td style="text-align:right">Nil</td></tr>
         </tbody></table></div></div>
-        <div class="card"><div class="hd"><h3>Disciplinary Issues</h3><span class="tag t-grey" style="margin-left:auto">🔒 CO / 2IC / Sub Maj</span></div><div class="bd" style="padding:0"><table><tbody>
+        <div class="card"><div class="hd"><h3>Disciplinary Issues</h3><span class="tag t-grey" style="margin-left:auto">🔒 CO / 2IC / Adjt</span></div><div class="bd" style="padding:0"><table><tbody>
           <tr><td>Conduct sheet</td><td style="text-align:right"><span class="tag t-green">Clean — nil red ink</span></td></tr>
           <tr><td>AA / summary awards</td><td style="text-align:right">Nil</td></tr>
           <tr><td>Last reviewed</td><td style="text-align:right">Jun 2026</td></tr>
@@ -545,11 +545,11 @@
       <div class="crumbs">Personnel / Discipline</div>
       <div class="page-head"><h2>Discipline</h2><span class="desc">Restricted register — conduct, AA &amp; summary action</span>
         <div class="actions"><button class="btn primary">＋ Record Entry</button></div></div>
-      <div class="note">🔒 Restricted access — visible to <b>CO / 2IC / Subedar Major</b> only. Row-level security limits this register to those appointments; structure below is illustrative.</div>
-      <div class="card"><div class="hd"><h3>Discipline Register</h3><span class="tag t-grey" style="margin-left:auto">🔒 CO / 2IC / Sub Maj</span></div><div class="bd" style="padding:0"><table>
+      <div class="note">🔒 Restricted access — visible to <b>CO / 2IC / Adjutant</b> only (not the Subedar Major). Row-level security limits this register to those appointments; structure below is illustrative.</div>
+      <div class="card"><div class="hd"><h3>Discipline Register</h3><span class="tag t-grey" style="margin-left:auto">🔒 CO / 2IC / Adjt</span></div><div class="bd" style="padding:0"><table>
         <thead><tr><th>Date</th><th>Army No.</th><th>Incident</th><th>Type</th><th>AA / Summary Action</th><th>Award</th><th>Status</th></tr></thead>
         <tbody>
-          <tr><td colspan="7"><div class="empty">Restricted — entries visible to CO / 2IC / Sub Maj only.<br>Each record holds: date · incident · type · AA / summary action · award.</div></td></tr>
+          <tr><td colspan="7"><div class="empty">Restricted — entries visible to CO / 2IC / Adjt only.<br>Each record holds: date · incident · type · AA / summary action · award.</div></td></tr>
         </tbody></table></div></div>
     </section>
 
@@ -875,8 +875,8 @@
           <thead><tr><th>Role</th><th>Scope</th><th>Permissions</th></tr></thead>
           <tbody>
             <tr><td>CO / 2IC</td><td>Battalion</td><td><span class="tag t-green">Read-all + Approve</span></td></tr>
-            <tr><td>Adjutant</td><td>Battalion</td><td>Personnel</td></tr>
-            <tr><td>Subedar Major</td><td>Battalion</td><td>Discipline / Leave</td></tr>
+            <tr><td>Adjutant</td><td>Battalion</td><td>Personnel / Discipline</td></tr>
+            <tr><td>Subedar Major</td><td>Battalion</td><td>Leave / JCO &amp; OR welfare</td></tr>
             <tr><td>Quartermaster</td><td>Battalion</td><td>Ration / Equipment / Clothing</td></tr>
             <tr><td>Kote NCO</td><td>Battalion</td><td>Weapons</td></tr>
             <tr><td>MTO</td><td>Battalion</td><td>Vehicles</td></tr>
@@ -903,7 +903,7 @@
           <tr><td>Special Skills — Soldier</td><td><span class="tag t-green">Coy Cdr</span></td><td>Chain of command</td><td><span class="tag t-amber">Own company</span></td></tr>
           <tr><td>Special Skills — Spouse</td><td><span class="tag t-green">Coy Cdr</span> · AWWA</td><td>CO/2IC · Coy Cdr</td><td><span class="tag t-amber">Own company</span></td></tr>
           <tr><td>Medical category (SHAPE)</td><td><span class="tag t-green">RMO</span></td><td>RMO · CO/2IC · Adjt</td><td><span class="tag t-amber">Need-to-know</span></td></tr>
-          <tr><td>Discipline register</td><td><span class="tag t-green">Sub Maj</span> · Adjt</td><td>CO/2IC · Sub Maj</td><td><span class="tag t-red">Restricted</span></td></tr>
+          <tr><td>Discipline register</td><td><span class="tag t-green">Adjutant</span></td><td>CO / 2IC / Adjt</td><td><span class="tag t-red">Restricted (not Sub Maj)</span></td></tr>
           <tr><td>Pay inputs</td><td>Adjt / clerk</td><td>CO/2IC · Adjt</td><td><span class="tag t-amber">Approve: CO</span></td></tr>
           <tr><td>Weapon / vehicle / equipment registers</td><td>Kote NCO · MTO · QM</td><td>Chain of command</td><td>Battalion</td></tr>
         </tbody></table></div>
