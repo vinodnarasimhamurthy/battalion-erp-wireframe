@@ -151,7 +151,7 @@
     </div>
     <div class="sub">17 RAJPUT (Mod M)</div>
     <div class="spacer"></div>
-    <span class="pill" onclick="go('analytics')">⚲ Currency &amp; Expiry <b id="topAlerts">12</b></span>
+    <span class="pill" onclick="go('analytics')">⚲ Currency &amp; Expiry <b id="topAlerts">14</b></span>
     <label style="font-size:11px;opacity:.8">Viewing as role:</label>
     <select id="roleSel" onchange="setRole(this.value)">
       <option>CO / 2IC — read-all + approve</option>
@@ -169,7 +169,7 @@
   <nav class="side" id="side">
     <div class="grp">Command</div>
     <a data-pg="dashboard" class="active" onclick="go('dashboard')"><span class="ic">▤</span>Dashboard</a>
-    <a data-pg="analytics" onclick="go('analytics')"><span class="ic">◷</span>Analytics &amp; Readiness<span class="badge">12</span></a>
+    <a data-pg="analytics" onclick="go('analytics')"><span class="ic">◷</span>Analytics &amp; Readiness<span class="badge">14</span></a>
 
     <div class="grp">Personnel</div>
     <a data-pg="personnel" onclick="go('personnel')"><span class="ic">☰</span>Personnel Roster</a>
@@ -217,7 +217,7 @@
       </div>
 
       <div class="grid cols-4">
-        <div class="card kpi"><div class="bd"><span class="label">Unit Readiness Index</span><span class="val">78<small style="font-size:14px">/100</small></span><span class="delta up">▲ 3 vs last month</span><div class="bar g"><i style="width:78%"></i></div></div></div>
+        <div class="card kpi"><div class="bd"><span class="label">Unit Readiness Index</span><span class="val">76<small style="font-size:14px">/100</small></span><span class="delta down">▼ 2 — MES infra dimension added</span><div class="bar a"><i style="width:76%"></i></div></div></div>
         <div class="card kpi"><div class="bd"><span class="label">Held vs Authorized (Men)</span><span class="val">812<small style="font-size:14px"> / 879</small></span><span class="delta down">▼ 67 deficient (92%)</span><div class="bar a"><i style="width:92%"></i></div></div></div>
         <div class="card kpi"><div class="bd"><span class="label">Weapon Serviceability</span><span class="val">96%</span><span class="delta up">▲ serviceable / held</span><div class="bar g"><i style="width:96%"></i></div></div></div>
         <div class="card kpi"><div class="bd"><span class="label">Vehicles On-Road</span><span class="val">84%</span><span class="delta down">▼ 4 off-road / BLR</span><div class="bar a"><i style="width:84%"></i></div></div></div>
@@ -250,7 +250,9 @@
                 <tr><td>Rfl 9mm SN 44021 — inspection</td><td>Weapon</td><td>10 Jun</td><td><span class="tag t-red">Overdue</span></td></tr>
                 <tr><td>BA-31204 — 5,000 km service</td><td>Vehicle</td><td>12 Jun</td><td><span class="tag t-red">Overdue</span></td></tr>
                 <tr><td>Sep Yadav R. — medical review</td><td>Medical</td><td>18 Jun</td><td><span class="tag t-amber">Due soon</span></td></tr>
+                <tr onclick="go('court')"><td>OA 221/2025 — AFT hearing</td><td>Court Case</td><td>24 Jun</td><td><span class="tag t-amber">Due soon</span></td></tr>
                 <tr><td>Hav Singh — range re-qual</td><td>Training</td><td>22 Jun</td><td><span class="tag t-amber">Due soon</span></td></tr>
+                <tr onclick="go('welfare')"><td>Special child (…1002M) — school admn 🔒</td><td>AWWA</td><td>27 Jun</td><td><span class="tag t-amber">Due soon</span></td></tr>
                 <tr><td>Nk Kumar — PIS card expiry</td><td>Document</td><td>30 Jun</td><td><span class="tag t-amber">Due soon</span></td></tr>
               </tbody>
             </table>
@@ -700,14 +702,15 @@
       <div class="card"><div class="bd" style="padding:0"><table>
         <thead><tr><th>Dimension</th><th>Source</th><th>Metric</th><th>Score</th><th>Weight</th><th></th></tr></thead>
         <tbody>
-          <tr><td>Manpower availability</td><td>personnel, leave, medical</td><td>Avail SHAPE-1 ÷ auth</td><td><b>81</b></td><td>25%</td><td><div class="bar g" style="width:140px"><i style="width:81%"></i></div></td></tr>
-          <tr><td>Weapon serviceability</td><td>weapon, maintenance</td><td>Svc ÷ held</td><td><b>96</b></td><td>15%</td><td><div class="bar g" style="width:140px"><i style="width:96%"></i></div></td></tr>
-          <tr><td>Shooting proficiency</td><td>firing_result</td><td>% Mksm / 1st cl</td><td><b>75</b></td><td>15%</td><td><div class="bar a" style="width:140px"><i style="width:75%"></i></div></td></tr>
-          <tr><td>Training currency</td><td>training_record</td><td>% current quals</td><td><b>88</b></td><td>15%</td><td><div class="bar g" style="width:140px"><i style="width:88%"></i></div></td></tr>
+          <tr><td>Manpower availability</td><td>personnel, leave, medical</td><td>Avail SHAPE-1 ÷ auth</td><td><b>81</b></td><td>22%</td><td><div class="bar g" style="width:140px"><i style="width:81%"></i></div></td></tr>
+          <tr><td>Weapon serviceability</td><td>weapon, maintenance</td><td>Svc ÷ held</td><td><b>96</b></td><td>13%</td><td><div class="bar g" style="width:140px"><i style="width:96%"></i></div></td></tr>
+          <tr><td>Shooting proficiency</td><td>firing_result</td><td>% Mksm / 1st cl</td><td><b>75</b></td><td>12%</td><td><div class="bar a" style="width:140px"><i style="width:75%"></i></div></td></tr>
+          <tr><td>Training currency</td><td>training_record</td><td>% current quals</td><td><b>88</b></td><td>13%</td><td><div class="bar g" style="width:140px"><i style="width:88%"></i></div></td></tr>
           <tr><td>Physical fitness</td><td>fitness, medical</td><td>% passing BPET/PPT</td><td><b>89</b></td><td>10%</td><td><div class="bar g" style="width:140px"><i style="width:89%"></i></div></td></tr>
           <tr><td>Vehicle availability</td><td>vehicle, servicing</td><td>% on-road</td><td><b>84</b></td><td>10%</td><td><div class="bar a" style="width:140px"><i style="width:84%"></i></div></td></tr>
           <tr><td>Equipment holding</td><td>equipment, org_unit</td><td>Held vs scaled · svc</td><td><b>72</b></td><td>10%</td><td><div class="bar r" style="width:140px"><i style="width:72%"></i></div></td></tr>
-          <tr style="background:var(--accentSoft)"><td colspan="3"><b>Weighted Unit Readiness Index</b></td><td><b>78</b></td><td>100%</td><td><div class="bar g" style="width:140px"><i style="width:78%"></i></div></td></tr>
+          <tr onclick="go('mes')" title="Open MES Works"><td>Infrastructure (MES Works)</td><td>mes_work</td><td>Adm-appr ÷ projected · on-schedule %</td><td><b>64</b></td><td>10%</td><td><div class="bar r" style="width:140px"><i style="width:64%"></i></div></td></tr>
+          <tr style="background:var(--accentSoft)"><td colspan="3"><b>Weighted Unit Readiness Index</b></td><td><b>76</b></td><td>100%</td><td><div class="bar a" style="width:140px"><i style="width:76%"></i></div></td></tr>
         </tbody></table></div></div>
 
       <div class="grid cols-2" style="margin-top:16px">
@@ -718,6 +721,9 @@
             <tr><td>BA-31204 service</td><td>Vehicle</td><td>12 Jun</td><td><span class="tag t-red">Overdue</span></td></tr>
             <tr><td>Pioneer special-to-arm</td><td>Training</td><td>05 May</td><td><span class="tag t-red">Expired</span></td></tr>
             <tr><td>Sep Yadav medical review</td><td>Medical</td><td>18 Jun</td><td><span class="tag t-amber">Due soon</span></td></tr>
+            <tr onclick="go('court')"><td>OA 221/2025 — AFT hearing</td><td>Court Case</td><td>24 Jun</td><td><span class="tag t-amber">Due soon</span></td></tr>
+            <tr onclick="go('court')"><td>OA 340/2026 — CA awaited</td><td>Court Case</td><td>30 Jun</td><td><span class="tag t-red">Action req</span></td></tr>
+            <tr onclick="go('welfare')"><td>Special child (…1002M) — school admn 🔒</td><td>AWWA</td><td>27 Jun</td><td><span class="tag t-amber">Due soon</span></td></tr>
             <tr><td>Nk Kumar PIS card</td><td>Document</td><td>30 Jun</td><td><span class="tag t-amber">Due soon</span></td></tr>
           </tbody></table></div></div>
         <div class="card"><div class="hd"><h3>Predictive Maintenance</h3></div><div class="bd" style="padding:0"><table>
