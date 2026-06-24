@@ -156,15 +156,18 @@
     <span class="pill" onclick="go('analytics')">⚲ Currency &amp; Expiry <b id="topAlerts">18</b></span>
     <label style="font-size:11px;opacity:.8">Viewing as role:</label>
     <select id="roleSel" onchange="setRole(this.value)">
-      <option>CO / 2IC — read-all + approve</option>
-      <option>Adjutant — Personnel / Discipline</option>
-      <option>Quartermaster — Ration/Equipment</option>
-      <option>Kote NCO — Weapons</option>
-      <option>MTO — Vehicles</option>
-      <option>Coy Cdr — A Coy only</option>
-      <option>Subedar Major — Leave view / Welfare</option>
-      <option>Sr JCO (Coy) — Leave recommend</option>
-      <option>Training JCO — Trg/Shoot/Fitness</option>
+      <option>CO — Read All + Approve</option>
+      <option>2IC — Officers' Leave + Regtl Accounts</option>
+      <option>Adjutant — Read All + Unit Discipline</option>
+      <option>Quartermaster — Ration / Eqpt / Clothing</option>
+      <option>Subedar Major — JCO / OR Welfare</option>
+      <option>Subedar Adjutant — Duties / ERE / Comn / Discipline</option>
+      <option>Company Commander — Own Coy · Read All + Approve</option>
+      <option>RMO — Medical Records + Approve</option>
+      <option>Company Senior JCO — Own Coy · Propose</option>
+      <option>MTO — Vehicles · Propose → HQ Coy Cdr</option>
+      <option>Kote NCO — Own Coy · Propose</option>
+      <option>Training Officer — Trg / Shoot / Fitness + Approve</option>
     </select>
     <div class="user"><span class="avatar">CO</span></div>
   </header>
@@ -449,7 +452,7 @@
           <tr><td>Review due</td><td style="text-align:right">02 Apr 2027</td></tr>
           <tr><td>Restrictions</td><td style="text-align:right">Nil</td></tr>
         </tbody></table></div></div>
-        <div class="card"><div class="hd"><h3>Disciplinary Issues</h3><span class="tag t-grey" style="margin-left:auto">🔒 CO / 2IC / Adjt</span></div><div class="bd" style="padding:0"><table><tbody>
+        <div class="card"><div class="hd"><h3>Disciplinary Issues</h3><span class="tag t-grey" style="margin-left:auto">🔒 CO / 2IC / Adjt / Sub Adjt</span></div><div class="bd" style="padding:0"><table><tbody>
           <tr><td>Conduct sheet</td><td style="text-align:right"><span class="tag t-green">Clean — nil red ink</span></td></tr>
           <tr><td>AA / summary awards</td><td style="text-align:right">Nil</td></tr>
           <tr><td>Last reviewed</td><td style="text-align:right">Jun 2026</td></tr>
@@ -551,7 +554,7 @@
           <tr><td>15490233P</td><td>Nk Dhanbahadur Rai</td><td>Casual</td><td>20 Jun</td><td>23 Jun</td><td>4</td><td>Nb Sub Khusiman Gurung (A Coy)</td><td>Pending</td><td><span class="tag t-grey">Applied</span></td></tr>
           <tr><td>15466190K</td><td>Sub Padambahadur Thapa</td><td>Annual</td><td>01 May</td><td>14 May</td><td>14</td><td>2IC</td><td>CO</td><td><span class="tag t-red">Overstayed</span></td></tr>
         </tbody></table></div></div>
-      <p class="hint" style="margin-top:8px">Leave is <b>recommended by the Senior JCO of the soldier's company</b>, then sanctioned per type (Coy Cdr / CO). The <b>Subedar Major holds battalion-wide view</b> of all leave (view-only) and retains JCO &amp; OR welfare.</p>
+      <p class="hint" style="margin-top:8px">Leave is <b>proposed by the Company Senior JCO</b> and <b>approved by the Company Commander / CO</b> (officers' leave: 2IC). The Subedar Major handles JCO &amp; OR welfare; ERE/TD detachments are administered by the Subedar Adjutant.</p>
       <div class="sec-title">Courses (cadre / promotion / special-to-arm)</div>
       <div class="card"><div class="bd" style="padding:0"><table>
         <thead><tr><th>Army No.</th><th>Name</th><th>Course</th><th>Category</th><th>Institution</th><th>Dates</th><th>Result</th></tr></thead>
@@ -586,11 +589,11 @@
       <div class="crumbs">Personnel / Discipline</div>
       <div class="page-head"><h2>Discipline</h2><span class="desc">Restricted register — conduct, AA &amp; summary action</span>
         <div class="actions"><button class="btn primary">＋ Record Entry</button></div></div>
-      <div class="note">🔒 Restricted access — visible to <b>CO / 2IC / Adjutant</b> only (not the Subedar Major). Row-level security limits this register to those appointments; structure below is illustrative.</div>
-      <div class="card"><div class="hd"><h3>Discipline Register</h3><span class="tag t-grey" style="margin-left:auto">🔒 CO / 2IC / Adjt</span></div><div class="bd" style="padding:0"><table>
+      <div class="note">🔒 Restricted access — Unit discipline is held by the <b>Adjutant &amp; Subedar Adjutant</b> (with CO / 2IC read-all); the Subedar Major runs JCO/OR welfare, not discipline. Row-level security limits this register to those appointments; structure below is illustrative.</div>
+      <div class="card"><div class="hd"><h3>Discipline Register</h3><span class="tag t-grey" style="margin-left:auto">🔒 CO / 2IC / Adjt / Sub Adjt</span></div><div class="bd" style="padding:0"><table>
         <thead><tr><th>Date</th><th>Army No.</th><th>Incident</th><th>Type</th><th>AA / Summary Action</th><th>Award</th><th>Status</th></tr></thead>
         <tbody>
-          <tr><td colspan="7"><div class="empty">Restricted — entries visible to CO / 2IC / Adjt only.<br>Each record holds: date · incident · type · AA / summary action · award.</div></td></tr>
+          <tr><td colspan="7"><div class="empty">Restricted — entries visible to CO / 2IC / Adjutant / Subedar Adjutant only.<br>Each record holds: date · incident · type · AA / summary action · award.</div></td></tr>
         </tbody></table></div></div>
     </section>
 
@@ -919,18 +922,20 @@
         <div class="card"><div class="hd"><h3>Roles → Appointments</h3></div><div class="bd" style="padding:0"><table>
           <thead><tr><th>Role</th><th>Scope</th><th>Permissions</th></tr></thead>
           <tbody>
-            <tr><td>CO / 2IC</td><td>Battalion</td><td><span class="tag t-green">Read-all + Approve</span></td></tr>
-            <tr><td>Adjutant</td><td>Battalion</td><td>Personnel / Discipline</td></tr>
-            <tr><td>Subedar Major</td><td>Battalion</td><td><span class="tag t-amber">Leave — Bn-wide view</span> · JCO &amp; OR welfare</td></tr>
-            <tr><td>Senior JCO (Coy)</td><td><span class="tag t-amber">Own company only</span></td><td>Recommends leave</td></tr>
-            <tr><td>Quartermaster</td><td>Battalion</td><td>Ration / Equipment / Clothing</td></tr>
-            <tr><td>Kote NCO</td><td>Battalion</td><td>Weapons</td></tr>
-            <tr><td>MTO</td><td>Battalion</td><td>Vehicles</td></tr>
-            <tr><td>RMO</td><td><span class="tag t-amber">Medical — need-to-know</span></td><td>Medical records (write)</td></tr>
-            <tr><td>Coy Cdr</td><td><span class="tag t-amber">Own company only</span></td><td>Read own coy · write special skills</td></tr>
-            <tr><td>Training JCO</td><td>Battalion</td><td>Training / Shooting / Fitness</td></tr>
+            <tr><td>CO</td><td>Battalion</td><td><span class="tag t-green">Read All + Approve</span></td></tr>
+            <tr><td>2IC</td><td>Battalion</td><td>Read All · <span class="tag t-grey">Officers' Leave + Regimental Accounts</span></td></tr>
+            <tr><td>Adjutant</td><td>Battalion</td><td>Read All · <span class="tag t-grey">Unit Discipline</span></td></tr>
+            <tr><td>Quartermaster</td><td>Battalion</td><td>Ration · Equipment · Clothing</td></tr>
+            <tr><td>Subedar Major</td><td>Battalion</td><td>JCO / OR Welfare</td></tr>
+            <tr><td>Subedar Adjutant</td><td>Battalion</td><td>Duties · ERE · Communication · Training oversight · Unit Discipline</td></tr>
+            <tr><td>Company Commanders</td><td><span class="tag t-amber">Own Coy (Rifle / Sp / HQ)</span></td><td><span class="tag t-green">Read All + Approve</span></td></tr>
+            <tr><td>RMO</td><td>Battalion</td><td><span class="tag t-green">Medical Records + Approve</span></td></tr>
+            <tr><td>Company Senior JCO</td><td><span class="tag t-amber">Own Coy (Rifle / Sp / HQ)</span></td><td>Read All · <span class="tag t-amber">Propose for Approval</span></td></tr>
+            <tr><td>MTO</td><td>Battalion</td><td>Vehicles · <span class="tag t-amber">Propose → HQ Coy Cdr</span></td></tr>
+            <tr><td>Kote NCO</td><td><span class="tag t-amber">Own Coy (Rifle / Sp / HQ)</span></td><td>Read All · <span class="tag t-amber">Propose for Approval</span></td></tr>
+            <tr><td>Training Officer</td><td>Battalion</td><td><span class="tag t-green">Training / Shooting / Fitness + Approve</span></td></tr>
           </tbody></table></div>
-          <div class="bd" style="border-top:1px solid var(--line2)"><p class="hint" style="margin:0">Row-level security enforced at the database layer (e.g. PostgreSQL RLS) — a Coy Cdr's queries return only his own company's rows, not just a filtered UI.</p></div></div>
+          <div class="bd" style="border-top:1px solid var(--line2)"><p class="hint" style="margin:0"><b>Company-scoped</b> roles (Company Commanders, Company Senior JCO, Kote NCO) see only their own company's rows via PostgreSQL RLS. <b>Propose-for-Approval</b> roles initiate transactions but cannot self-approve — separation of duties, enforced at the DB layer.</p></div></div>
         <div class="card"><div class="hd"><h3>Audit Trail (immutable)</h3></div><div class="bd" style="padding:0"><table>
           <thead><tr><th>When</th><th>User / Role</th><th>Action</th><th>Record</th></tr></thead>
           <tbody>
@@ -949,12 +954,15 @@
           <tr><td>Special Skills — Soldier</td><td><span class="tag t-green">Coy Cdr</span></td><td>Chain of command</td><td><span class="tag t-amber">Own company</span></td></tr>
           <tr><td>Special Skills — Spouse</td><td><span class="tag t-green">Coy Cdr</span> · AWWA</td><td>CO/2IC · Coy Cdr</td><td><span class="tag t-amber">Own company</span></td></tr>
           <tr><td>Medical category (SHAPE)</td><td><span class="tag t-green">RMO</span></td><td>RMO · CO/2IC · Adjt</td><td><span class="tag t-amber">Need-to-know</span></td></tr>
-          <tr><td>Discipline register</td><td><span class="tag t-green">Adjutant</span></td><td>CO / 2IC / Adjt</td><td><span class="tag t-red">Restricted (not Sub Maj)</span></td></tr>
-          <tr><td>Leave record</td><td>Recommend: <span class="tag t-green">Sr JCO</span> · Sanction: Coy Cdr / CO</td><td>Chain · Sub Maj (Bn view)</td><td><span class="tag t-amber">Own coy / Bn view</span></td></tr>
+          <tr><td>Discipline register</td><td><span class="tag t-green">Adjutant · Subedar Adjutant</span></td><td>CO / 2IC / Adjt / Sub Adjt</td><td><span class="tag t-red">Restricted</span></td></tr>
+          <tr><td>Leave record</td><td>Propose: <span class="tag t-amber">Company Sr JCO</span> · Approve: Coy Cdr / CO <span class="hint">(officers: 2IC)</span></td><td>Chain of command</td><td><span class="tag t-amber">Own company</span></td></tr>
+          <tr><td>ERE / TD detachment</td><td><span class="tag t-green">Subedar Adjutant</span></td><td>Chain · Coy Cdr · Adjt</td><td>Battalion</td></tr>
+          <tr><td>Regimental accounts</td><td><span class="tag t-green">2IC</span></td><td>CO / 2IC</td><td>Battalion</td></tr>
+          <tr><td>Training / shooting / fitness</td><td><span class="tag t-green">Training Officer</span></td><td>Chain of command</td><td><span class="tag t-amber">Approve: Trg Offr</span></td></tr>
           <tr><td>Pay inputs</td><td>Adjt / clerk</td><td>CO/2IC · Adjt</td><td><span class="tag t-amber">Approve: CO</span></td></tr>
-          <tr><td>Weapon / vehicle / equipment registers</td><td>Kote NCO · MTO · QM</td><td>Chain of command</td><td>Battalion</td></tr>
+          <tr><td>Weapon / vehicle / equipment registers</td><td>Kote NCO · MTO · QM <span class="hint">(propose)</span></td><td>Chain of command</td><td><span class="tag t-amber">Approve: Coy Cdr / HQ Coy Cdr</span></td></tr>
         </tbody></table></div>
-        <div class="bd" style="border-top:1px solid var(--line2)"><p class="hint" style="margin:0"><b>Coy Cdr</b> may write Special Skills (soldier &amp; spouse) only for his own company; <b>RMO</b> owns medical-category writes on a need-to-know basis (visible to RMO + CO/2IC + Adjt). Both are enforced by row- and field-level security, not the UI.</p></div></div>
+        <div class="bd" style="border-top:1px solid var(--line2)"><p class="hint" style="margin:0"><b>Unit discipline</b> is held by the Adjutant &amp; Subedar Adjutant (not the Subedar Major, who runs JCO/OR welfare); <b>ERE/TD</b> is administered by the Subedar Adjutant; <b>Propose-for-Approval</b> roles (Sr JCO, Kote NCO, MTO) initiate but cannot self-approve. All enforced by row- and field-level security.</p></div></div>
     </section>
 
     <!-- ============ MES WORKS ============ -->
